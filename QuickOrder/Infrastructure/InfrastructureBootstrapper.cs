@@ -9,7 +9,6 @@ namespace Infrastructure
         {
             var assemblyTypes = typeof(InfrastructureBootstrapper).Assembly.GetNoAbstractTypes();
 
-            //  services.AddScoped<IMediatorHandler, InMemoryBus>();
             services.AddImplementations(ServiceLifetime.Scoped, typeof(IBaseRepository), assemblyTypes);
         }
     }

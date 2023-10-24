@@ -1,21 +1,33 @@
-# Use root/example as user/password credentials
-version: '3.1'
-
+version: '3'
 services:
-
-  mongo:
-    image: mongo
-    restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-
-  mongo-express:
-    image: mongo-express
-    restart: always
+  web:
+    container_name: 'accman-web-app'
+    image: 'quickorder-web'
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - 8081:8081
+      - '8090:80'
+    depends_on:
+      - 'postgres'
+    networks:
+      - quickorderdb-network  
+
+  postgres:
+    ports:
+      - '5432:5432'
+    container_name: quickorderdb-postgresql
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/doc
+      - POSTGRES_PASSWORD=mypass
+    volumes:
+      - 'quickorderdb-postgresql-volume:/var/lib/postgresql/data'
+    image: 'postgres:10.4'
+    networks:
+      - quickorderdb-network
+
+volumes:
+  quickorderdb-postgresql-volume:
+
+networks:
+  quickorderdb-network:
+    driver: bridge

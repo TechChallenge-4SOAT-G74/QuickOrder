@@ -4,6 +4,6 @@ namespace Application.UseCases.Produto.Interfaces
 {
     public interface IProdutoCriarUseCase
     {
-        Task Execute(ProdutoDto produto);
+        Task<ServiceResult> Execute(ProdutoDto produto);
     }
 }

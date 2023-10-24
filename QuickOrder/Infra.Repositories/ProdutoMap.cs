@@ -17,7 +17,6 @@ namespace Infra.Repositories
                 map.MapMember(x => x.Preco).SetIsRequired(true);
                 map.MapMember(x => x.Descricao).SetIsRequired(false);
                 map.MapMember(x => x.Foto).SetIsRequired(false);
-                map.MapMember(x => x.ProdutoItems).SetIsRequired(false);
             });
         }
     }

@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DbConnectionModel.cs" />
     <Compile Remove="IEntry.cs" />
+    <Compile Remove="MongoDBBaseRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

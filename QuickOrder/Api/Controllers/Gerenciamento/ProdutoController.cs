@@ -8,11 +8,11 @@ namespace Api.Controllers.Gerenciamento
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProdutoController : ControllerBase
+    public class ProdutoController : CustomController<ProdutoController>
     {
         private readonly IProdutoCriarUseCase _produtoCriarUseCase;
 
-        public ProdutoController(IProdutoCriarUseCase produtoCriarUseCase)
+        public ProdutoController(ILogger<ProdutoController> logger, IProdutoCriarUseCase produtoCriarUseCase) : base(logger)
         {
             _produtoCriarUseCase = produtoCriarUseCase;
         }
@@ -33,9 +33,9 @@ namespace Api.Controllers.Gerenciamento
 
         // POST api/<ProdutoController>
         [HttpPost]
-        public IActionResult Post([FromBody] ProdutoDto produto)
+        public async Task<IActionResult> Post([FromBody] ProdutoDto produto)
         {
-            return Ok(_produtoCriarUseCase.Execute(produto));
+            return Result(await _produtoCriarUseCase.Execute(produto));
         }
 
         // PUT api/<ProdutoController>/5

@@ -1,6 +1,9 @@
-﻿namespace Domain.Repositories
+﻿using Domain.Adapters;
+using Domain.Entities;
+
+namespace Domain.Repositories
 {
-    public interface IBaseRepository
+    public interface IBaseRepository : IRepository<Produto>
     {
     }
 }

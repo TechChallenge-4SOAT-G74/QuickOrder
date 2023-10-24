@@ -16,10 +16,13 @@ namespace Application.UseCases.Produto
             _produtoRepository = produtoRepository;
         }
 
-        public async Task Execute(ProdutoDto produtoViewModel)
+        public async Task<ServiceResult> Execute(ProdutoDto produtoViewModel)
         {
-            var produto = new ProdutoEntity(new NomeVo(produtoViewModel.Nome), (int)ECategoria.Lanche, produtoViewModel.Preco, produtoViewModel.Descricao, produtoViewModel.Foto);
-            await _produtoRepository.Add(produto);
+            ServiceResult result = new();
+            var produto = new ProdutoEntity { Nome = produtoViewModel.Nome, CategoriaId = (int)ECategoria.Lanche, Preco = produtoViewModel.Preco, Descricao =  produtoViewModel.Descricao, Foto = produtoViewModel.Foto };
+            await _produtoRepository.Insert(produto);
+
+            return result;
         }
     }
 }

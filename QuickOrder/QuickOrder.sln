@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{75D8BE0D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{5AD60F2C-DCAE-4636-ABBF-69C699D372A8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Repositories", "Infra.Repositories\Infra.Repositories.csproj", "{34046479-B283-416C-9C64-3DA8D687956C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.Data", "Infra.Repositories\Infra.Data.csproj", "{34046479-B283-416C-9C64-3DA8D687956C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra.ServiceBus", "Infra.ServiceBus\Infra.ServiceBus.csproj", "{79E7AD82-023E-48A9-AC80-2B8CA67966B8}"
 EndProject

@@ -21,7 +21,7 @@
 
         public Guid ProdutoId { get; set; }
         public Produto Produto { get; set; }
-        public Guid ItemId  {get; set; }
+        public Guid ItemId { get; set; }
         public Item Item { get; set; }
         public int Quantidade { get; set; }
         public int QuantidadeMin { get; set; }

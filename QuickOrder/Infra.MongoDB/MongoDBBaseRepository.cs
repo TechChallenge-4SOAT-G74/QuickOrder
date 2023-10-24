@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
-using static Infra.MongoDB.DbConnectionModel;
 
 namespace Infra.MongoDB
 {

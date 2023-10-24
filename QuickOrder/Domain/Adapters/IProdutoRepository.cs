@@ -1,13 +1,9 @@
-﻿using Domain.Entities;
+﻿using Domain.Adapters;
+using Domain.Entities;
 
 namespace Domain.Repositories
 {
-    public interface IProdutoRepository : IBaseRepository
+    public interface IProdutoRepository : IBaseRepository, IRepository<Produto>
     {
-        Task Add(Produto produto);
-        Task Update(Produto produto);
-        Task Delete(Guid id);
-        Task<Produto> GetById(Guid Id);
-        Task<Produto> GetAll();
     }
 }

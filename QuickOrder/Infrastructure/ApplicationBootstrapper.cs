@@ -3,7 +3,7 @@ using Application.UseCases.Pedido.Interfaces;
 using Application.UseCases.Produto;
 using Application.UseCases.Produto.Interfaces;
 using Domain.Repositories;
-using Infra.Repositories;
+using Infra.Data.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure

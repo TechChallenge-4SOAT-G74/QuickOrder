@@ -1,12 +1,29 @@
 using Api.Configurations;
-using Domain.Entities;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using static Infra.MongoDB.DbConnectionModel;
+using Infra.Data.Core;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.Configure<DatabaseSettings>(
+    builder.Configuration.GetSection("DatabaseSettings")
+);
+var migrationsAssembly = typeof(ApplicationContext).Assembly.GetName().Name;
+var migrationTable = "__IntegradorPlurallMigrationsHistory";
+var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
+builder.Services.AddDbContext<ApplicationContext>(options =>
+{
+    options.UseNpgsql(databaseSettings.ConnectionString, b =>
+    {
+        b.MigrationsAssembly(migrationsAssembly);
+        b.MigrationsHistoryTable(migrationTable);
+    });
+
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+});
+
+
 
 builder.Services.AddDependencyInjectionConfiguration();
 builder.Services.AddControllers()
@@ -17,31 +34,17 @@ builder.Services.AddControllers()
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("QuickOrderDatabase"));
-builder.Services.Configure<DatabaseSettings>(
-    builder.Configuration.GetSection("DatabaseSettings")
-);
 
-builder.Services.AddSingleton<IMongoDatabase>(options => {
-    var settings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
-    var client = new MongoClient(settings.ConnectionString);
-    return client.GetDatabase(settings.DatabaseName);
-});
 
-BsonClassMap.RegisterClassMap<Produto>(map =>
-{
-    map.AutoMap();
-    map.SetIgnoreExtraElements(true);
-    map.MapIdMember(x => x.Id);
-    map.MapMember(x => x.Nome).SetIsRequired(true);
-    map.MapMember(x => x.CategoriaId).SetIsRequired(true);
-    map.MapMember(x => x.Preco).SetIsRequired(true);
-    map.MapMember(x => x.Descricao).SetIsRequired(false);
-    map.MapMember(x => x.Foto).SetIsRequired(false);
-    //  map.MapMember(x => x.ProdutoItems).SetIsRequired(false);
-});
 
 var app = builder.Build();
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationContext>();
+    db.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
