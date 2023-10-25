@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace QuickOrder.Core.Infrastructure
+namespace QuickOrder.Core.IoC
 {
     public static class DependenctInjectionServicesExtensions
     {

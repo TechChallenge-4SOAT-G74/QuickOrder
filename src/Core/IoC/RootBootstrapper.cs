@@ -2,19 +2,17 @@
 using Microsoft.Extensions.DependencyInjection;
 using QuickOrder.Adapters.Driven.PostgresDB.Repositories;
 using QuickOrder.Core.Application.UseCases.Pedido.Interfaces;
-using QuickOrder.Core.Application.UseCases.Produto.Interfaces;
 using QuickOrder.Core.Application.UseCases.Produto;
+using QuickOrder.Core.Application.UseCases.Produto.Interfaces;
 using QuickOrder.Core.Domain.Repositories;
-using QuickOrder.Core.Domain.Adapters;
-using QuickOrder.Adapters.Driven.MongoDB.Repositories;
 
-namespace QuickOrder.Core.Infrastructure
+namespace QuickOrder.Core.IoC
 {
     public static class RootBootstrapper
     {
         public static void BootstrapperRegisterServices(this IServiceCollection services)
         {
-            var assemblyTypes = typeof(InfrastructureBootstrapper).Assembly.GetNoAbstractTypes();
+            var assemblyTypes = typeof(RootBootstrapper).Assembly.GetNoAbstractTypes();
 
             services.AddImplementations(ServiceLifetime.Scoped, typeof(IBaseRepository), assemblyTypes);
 

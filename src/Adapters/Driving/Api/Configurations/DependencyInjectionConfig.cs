@@ -1,4 +1,5 @@
-﻿using QuickOrder.Core.Infrastructure;
+﻿
+using QuickOrder.Core.IoC;
 
 namespace QuickOrder.Adapters.Driving.Api.Configurations
 {

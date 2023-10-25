@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Core\Infrastructure\QuickOrder.Core.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Core\IoC\QuickOrder.Core.IoC.csproj" />
   </ItemGroup>
 
 </Project>
