@@ -36,13 +36,13 @@ services:
     ports:
       - "27017:27017"
     volumes:
-      - 'pedidostatus-mongodb-volume:/data/db'
+      - 'quickorderdb-mongodb-volume:/data/db'
     networks:
       - quickorderdb-network
 
 volumes:
   quickorderdb-postgresql-volume:
-  pedidostatus-mongodb-volume:
+  quickorderdb-mongodb-volume:
 
 networks:
   quickorderdb-network:
