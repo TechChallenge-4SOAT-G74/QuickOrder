@@ -24,7 +24,7 @@ namespace QuickOrder.Core.Application.UseCases.Produto
                 await _produtoRepository.Insert(produto);
             }
             catch (Exception ex) { result.AddError(ex.Message); }
-            return result ;
+            return result;
         }
     }
 }

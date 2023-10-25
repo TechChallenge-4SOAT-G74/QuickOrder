@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using QuickOrder.Adapters.Driven.PostgresDB.Core;
 using QuickOrder.Adapters.Driving.Api.Configurations;
 using QuickOrder.Core.Domain.Entities;
@@ -34,7 +35,10 @@ builder.Services.AddControllers()
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "QuickOrder.Api", Version = "v1" });
+});
 
 
 
@@ -53,6 +57,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseReDoc(c =>
+{
+    c.DocumentTitle = "QuickOrder API Documentation";
+    c.SpecUrl = "/swagger/v1/swagger.json";
+});
 
 app.UseHttpsRedirection();
 

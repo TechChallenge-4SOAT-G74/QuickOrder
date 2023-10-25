@@ -3,7 +3,7 @@
     public class Funcionario : EntityBase, IAggregateRoot
     {
         protected Funcionario() { }
-        public Funcionario(int matricula,  Usuario usuario)
+        public Funcionario(int matricula, Usuario usuario)
         {
             Matricula = matricula;
             Usuario = usuario;

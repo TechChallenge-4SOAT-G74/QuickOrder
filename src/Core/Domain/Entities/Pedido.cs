@@ -2,12 +2,12 @@
 {
     public class Pedido : EntityBase, IAggregateRoot
     {
-        protected Pedido() { } 
-        public Pedido(int numeroPedido, 
-                      DateTime dataHoraInicio, 
-                      DateTime? dataHoraFinalizado, 
-                      Cliente cliente, 
-                      List<ProdutoItemPedido> produtosItemsPedido, 
+        protected Pedido() { }
+        public Pedido(int numeroPedido,
+                      DateTime dataHoraInicio,
+                      DateTime? dataHoraFinalizado,
+                      Cliente cliente,
+                      List<ProdutoItemPedido> produtosItemsPedido,
                       double valorPedido,
                       bool pedidoPago,
                       string? observacao = null)
