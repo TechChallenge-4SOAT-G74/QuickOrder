@@ -18,11 +18,13 @@ namespace QuickOrder.Core.Application.UseCases.Produto
         public async Task<ServiceResult> Execute(ProdutoDto produtoViewModel)
         {
             ServiceResult result = new();
-            var produto = new ProdutoEntity { Nome = produtoViewModel.Nome, CategoriaId = (int)ECategoria.Lanche, Preco = produtoViewModel.Preco, Descricao = produtoViewModel.Descricao, Foto = produtoViewModel.Foto };
-            await _produtoRepository.Insert(produto);
-
-            return result;
+            try
+            {
+                var produto = new ProdutoEntity(produtoViewModel.Nome, (int)ECategoria.Lanche, produtoViewModel.Preco, produtoViewModel.Descricao, produtoViewModel.Foto);
+                await _produtoRepository.Insert(produto);
+            }
+            catch (Exception ex) { result.AddError(ex.Message); }
+            return result ;
         }
     }
 }
-

@@ -1,18 +1,38 @@
 ﻿namespace QuickOrder.Core.Domain.Entities
 {
-    public class Pedido : EntityBase
+    public class Pedido : EntityBase, IAggregateRoot
     {
-        private readonly IList<ProdutoItemPedido> _produtoItemPedidos;
-        private readonly Cliente? _cliente;
+        protected Pedido() { } 
+        public Pedido(int numeroPedido, 
+                      DateTime dataHoraInicio, 
+                      DateTime? dataHoraFinalizado, 
+                      Cliente cliente, 
+                      List<ProdutoItemPedido> produtosItemsPedido, 
+                      double valorPedido,
+                      bool pedidoPago,
+                      string? observacao = null)
+        {
+            NumeroPedido = numeroPedido;
+            DataHoraInicio = dataHoraInicio;
+            DataHoraFinalizado = dataHoraFinalizado;
+            Cliente = cliente;
+            ProdutosItemsPedido = produtosItemsPedido;
+            ValorPedido = valorPedido;
+            PedidoPago = pedidoPago;
+            Observacao = observacao;
 
-        public int NumeroPedido { get; set; }
-        public DateTime DataHoraInicio { get; set; }
-        public DateTime DataHoraFinalizado { get; set; }
-        public Cliente? Cliente => _cliente;
-        public IReadOnlyCollection<ProdutoItemPedido> ProdutoItemPedidos => _produtoItemPedidos.ToArray();
-        public string? Observacao { get; set; }
-        public double ValorPedido { get; set; }
-        public bool PedidoPago { get; set; }
+            //CalculaPrecoPedido();
+        }
+
+        public virtual int NumeroPedido { get; set; }
+        public virtual DateTime DataHoraInicio { get; set; }
+        public virtual DateTime? DataHoraFinalizado { get; set; }
+        public virtual int ClienteId { get; set; }
+        public virtual Cliente Cliente { get; set; }
+        public virtual List<ProdutoItemPedido> ProdutosItemsPedido { get; set; }
+        public virtual double ValorPedido { get; set; }
+        public virtual string? Observacao { get; set; }
+        public virtual bool PedidoPago { get; set; }
 
         public void CalculaPrecoPedido()
         {

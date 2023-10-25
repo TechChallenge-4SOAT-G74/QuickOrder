@@ -2,26 +2,26 @@
 
 namespace QuickOrder.Core.Domain.Entities
 {
-    public abstract class Usuario : EntityBase
+    public class Usuario : EntityBase, IAggregateRoot
     {
+        protected Usuario() { }
 
-        public NomeUsuarioVo Nome { get; set; }
-        public CpfVo Cpf { get; set; }
-        public EmailVo Email { get; set; }
-        public bool Ativo { get; set; }
-        public IList<Role> Roles { get; set; }
+        public Usuario(string nome, string cpf, string email, bool status, List<Role> roles)
+        {
+            Nome = new NomeVo(nome);
+            Cpf = new CpfVo(cpf);
+            Email = new EmailVo(email);
+            Status = status;
+            Roles = roles;
+        }
 
+        public virtual NomeVo Nome { get; private set; }
+        public virtual CpfVo Cpf { get; private set; }
+        public virtual EmailVo Email { get; private set; }
+        public virtual bool Status { get; private set; }
+        public virtual List<Role> Roles { get; set; }
+        public virtual List<Cliente> Clientes { get; set; }
+        public virtual List<Funcionario> Funcionarios { get; set; }
 
-        //public override string ToString() => Nome.ToString();
-
-        //public void Validate()
-        //{
-        //    AddNotifications(
-        //      new Contract()
-        //      .IsTrue(Nome.Valid, "Nome", "Nome inválido")
-        //      .IsTrue(Cpf.Valid, "Cpf", "Cpf inválido")
-        //      .IsTrue(Email.Valid, "Email", "Email inválido")
-        //          );
-        //}
     }
 }

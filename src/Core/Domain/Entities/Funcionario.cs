@@ -1,10 +1,16 @@
 ﻿namespace QuickOrder.Core.Domain.Entities
 {
-    public class Funcionario : EntityBase
+    public class Funcionario : EntityBase, IAggregateRoot
     {
-        private readonly Usuario _usuario;
+        protected Funcionario() { }
+        public Funcionario(int matricula,  Usuario usuario)
+        {
+            Matricula = matricula;
+            Usuario = usuario;
+        }
 
-        public int Matricula { get; set; }
-        public Usuario Usuario => _usuario;
+        public virtual int Matricula { get; set; }
+        public virtual int UsuarioId { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

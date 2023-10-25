@@ -7,8 +7,8 @@ namespace QuickOrder.Core.Application.Dtos
     public class ServiceResult<T> : ServiceResult
     {
         public T Data { get; set; }
-        public ServiceResult() : this(default(T)) { }
-        public ServiceResult(T result) => this.Data = result;
+        public ServiceResult() : this(default) { }
+        public ServiceResult(T result) => Data = result;
 
         public static implicit operator ServiceResult<T>(T value)
         {
@@ -26,7 +26,7 @@ namespace QuickOrder.Core.Application.Dtos
     public class ServiceResult
     {
         public int CodeId { get; set; } = StatusCodes.Status200OK;
-        public string? Message { get; set; }
+        public string Message { get; set; }
         public bool IsSuccess { get { return !(Errors?.Count > 0); } }
         public List<ErrorResultDetail> Errors { get; set; } = new List<ErrorResultDetail>();
 
@@ -63,7 +63,7 @@ namespace QuickOrder.Core.Application.Dtos
         /// <param name="errorResultDetail">Instância de detalhamento do erro</param>
         public void AddError(ErrorResultDetail errorResultDetail)
         {
-            int codeId = errorResultDetail.StatusCode ?? StatusCodes.Status400BadRequest;
+            var codeId = errorResultDetail.StatusCode ?? StatusCodes.Status400BadRequest;
             AddError(codeId, errorResultDetail);
         }
 
@@ -76,8 +76,8 @@ namespace QuickOrder.Core.Application.Dtos
         /// <param name="errorResultDetail">Instância de detalhamento do erro</param>
         public void AddError(int codeId, ErrorResultDetail errorResultDetail)
         {
-            this.CodeId = this.CodeId > codeId
-                ? this.CodeId
+            CodeId = CodeId > codeId
+                ? CodeId
                 : codeId;
 
             Errors.Add(errorResultDetail);
@@ -114,6 +114,22 @@ namespace QuickOrder.Core.Application.Dtos
             if (Errors != null)
                 result = Errors.Any(p => p.Code == code || p.Details.Any(x => x.Code == code));
 
+            return result;
+        }
+
+        public static implicit operator ServiceResult(string errorMsg)
+        {
+            var result = new ServiceResult();
+            result.Message = errorMsg;
+            result.AddError(errorMsg);
+            return result;
+        }
+
+        public static implicit operator ServiceResult(Exception ex)
+        {
+            var result = new ServiceResult();
+            result.Message = ex.Message;
+            result.AddError(ex.ToString());
             return result;
         }
     }

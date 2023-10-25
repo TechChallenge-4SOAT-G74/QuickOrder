@@ -2,31 +2,31 @@
 
 namespace QuickOrder.Core.Domain.Entities
 {
-    public class Cliente : EntityBase
+    public class Cliente : EntityBase, IAggregateRoot
     {
-        public int Id { get; private set; }
-        private readonly Usuario _usuario;
-        private readonly IList<Pedido> _pedidos;
+        protected Cliente() { }
 
-        public TelefoneVo Telefone { get; set; }
-        public DataVo DataNascimento { get; set; }
-        public Usuario Usuario => _usuario;
-
-        public IReadOnlyCollection<Pedido> Pedidos => _pedidos.ToArray();
-
-
-        public void AddPedidos(Pedido pedido)
+        public Cliente(string ddd, string numeroTelefone, DateTime? dataNascimento, Usuario usuario, List<Pedido> pedidos)
         {
-            _pedidos.Add(pedido);
+            Telefone = new TelefoneVo(ddd, numeroTelefone);
+            DataNascimento = dataNascimento;
+            Usuario = usuario;
+            Pedidos = pedidos;
         }
 
+        public Cliente(string ddd, string numeroTelefone, DateTime dataNascimento, Usuario usuario)
+        {
+            Telefone = new TelefoneVo(ddd, numeroTelefone);
+            DataNascimento = dataNascimento;
+            Usuario = usuario;
+        }
 
-        //public void Validate()
-        //{
-        //    AddNotifications(
-        //      new Contract()
-        //      .IsTrue(Telefone.Valid, "Telefone", "Telefone inválido")
-        //      .IsTrue(DataNascimento.Valid, "DataNascimento", "Cpf inválido"));
-        //}
+        public virtual TelefoneVo Telefone { get; set; }
+        public virtual DateTime? DataNascimento { get; set; }
+        public virtual int UsuarioId { get; set; }
+        public virtual Usuario Usuario { get; set; }
+
+        public List<Pedido>? Pedidos { get; set; }
+
     }
 }

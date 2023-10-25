@@ -1,23 +1,24 @@
-﻿using Flunt.Notifications;
-using Flunt.Validations;
+﻿using System.Text.RegularExpressions;
 
 namespace QuickOrder.Core.Domain.ValueObjects
 {
-    public class EmailVo : Notifiable, IValidatable
+    public class EmailVo
     {
-        public EmailVo(string address)
+        public string Endereco { get; private set; }
+
+        public EmailVo(string endereco)
         {
-            Address = address;
-            Validate();
+            Endereco = endereco;
+            Validar();
         }
 
-        public string Address { get; private set; }
+        protected EmailVo() { }
 
-        public void Validate()
+        private void Validar()
         {
-            AddNotifications(new Contract()
-                .Requires()
-                .IsEmail(Address, "Email", "O e-mail é inválido"));
+            string pattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+            if (Regex.IsMatch(Endereco, pattern, RegexOptions.IgnoreCase))
+                throw new Exception("E-mail Inválido! Não é possível criar Usuário");
         }
     }
 }

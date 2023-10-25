@@ -1,27 +1,23 @@
-﻿using Flunt.Notifications;
-using Flunt.Validations;
-
-namespace QuickOrder.Core.Domain.ValueObjects
+﻿namespace QuickOrder.Core.Domain.ValueObjects
 {
-    public class NomeVo : Notifiable, IValidatable
+    public class NomeVo
     {
+
+        public string Nome { get; private set; }
+
         public NomeVo(string nome)
         {
             Nome = nome;
-            Validate();
+            Validar();
         }
-        public string Nome { get; private set; }
 
-        public override string ToString()
+        protected NomeVo() { }
+
+        private void Validar()
         {
-            return $"{Nome}";
-        }
-        public void Validate()
-        {
-            AddNotifications(new Contract()
-            .Requires()
-            .HasMinLen(Nome, 3, "Nome", "Nome deve conter pelo menos 3 caracteres")
-            .HasMaxLen(Nome, 150, "Nome", "Nome deve conter no máximo 50 caracteres"));
+            if (string.IsNullOrWhiteSpace(Nome)) { throw new Exception("Nome não informado!"); }
+            if (Nome.Length < 3) { throw new Exception("Nome deve ter mais de 3 caracteres!"); }
+            if (Nome.Length > 150) { throw new Exception("Nome deve ter máximo 150 caracteres"); }
         }
 
     }

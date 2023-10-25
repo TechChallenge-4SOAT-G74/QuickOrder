@@ -1,12 +1,12 @@
 ﻿namespace QuickOrder.Core.Domain.Entities
 {
-    public class ProdutoItemPedido : EntityBase
+    public class ProdutoItemPedido : EntityBase, IAggregateRoot
     {
-        private readonly IList<ProdutoItem> _produtoItem;
-
-        public int PedidoId { get; set; }
-        public int ProdutoId { get; set; }
-        public ICollection<ProdutoItem>? ProdutoItems => _produtoItem.ToArray();
-        public int QuantidadeProduto { get; set; }
+        public virtual int ProdutoItemId { get; set; }
+        public virtual ProdutoItem ProdutoItem { get; set; }
+        public virtual int PedidoId { get; set; }
+        public virtual Pedido Pedido { get; set; }
+        public virtual int QuantidadeProduto { get; set; }
+        public virtual List<Pedido> Pedidos { get; set; }
     }
 }

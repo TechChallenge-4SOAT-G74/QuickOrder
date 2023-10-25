@@ -1,12 +1,13 @@
-﻿using QuickOrder.Core.Domain.Enums;
+﻿using MongoDB.Bson;
+using QuickOrder.Core.Domain.Enums;
 
 namespace QuickOrder.Core.Domain.Entities
 {
-    public class PedidoStatus : EntityBase
+    public class PedidoStatus
     {
-        private readonly Pedido _pedido;
-        public Pedido? Pedido => _pedido;
-        public EStatusPedido StatusPedidoEnum { get; set; }
-        public DateTime DataAtualizacao { get; set; }
+        public virtual ObjectId Id { get; set; }
+        public virtual int NumeroPedido { get; set; }
+        public virtual EStatusPedido StatusPedidoEnum { get; set; }
+        public virtual DateTime DataAtualizacao { get; set; }
     }
 }

@@ -5,11 +5,10 @@ using QuickOrder.Core.Domain.Entities;
 
 namespace QuickOrder.Adapters.Driven.PostgresDB.Mapping
 {
-    public class ProdutoMap : IEntityMap<Produto>
+    public class RoleMap : IEntityMap<Role>
     {
-        public void Configure(EntityTypeBuilder<Produto> builder)
+        public void Configure(EntityTypeBuilder<Role> builder)
         {
-
             builder.OwnsOne(x => x.Nome, nome =>
             {
                 nome.Property(x => x.Nome)
@@ -18,17 +17,10 @@ namespace QuickOrder.Adapters.Driven.PostgresDB.Mapping
                 .IsRequired(true);
             });
 
-            builder.Property(x => x.CategoriaId)
-                   .IsRequired();
-            builder.Property(x => x.Preco)
+            builder.Property(x => x.Status)
                   .IsRequired();
-            builder.Property(x => x.Descricao)
-                  .IsRequired(false);
-            builder.Property(x => x.Foto)
-                  .IsRequired(false);
-            builder.HasMany(x => x.ProdutoItens);
-
-
+            builder.HasMany(x => x.Funcionalidades);
         }
     }
 }
+

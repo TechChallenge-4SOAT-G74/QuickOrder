@@ -1,26 +1,26 @@
-﻿using Flunt.Notifications;
-using Flunt.Validations;
-
-namespace QuickOrder.Core.Domain.ValueObjects
+﻿namespace QuickOrder.Core.Domain.ValueObjects
 {
-    public class CpfVo : Notifiable, IValidatable
+    public class CpfVo
     {
-        public string Number { get; private set; }
-        public CpfVo(string number)
+        protected CpfVo() { }
+        public CpfVo(string codigoCpf)
         {
-            Number = number;
-            Validate();
+            CodigoCpf = codigoCpf;
+            Validar();
+        }
+        public string CodigoCpf { get; private set; }
+        public override string ToString()
+        {
+            return $"{CodigoCpf}";
         }
 
-        public void Validate()
+        private void Validar()
         {
-            AddNotifications(new Contract()
-                .Requires()
-                .IsTrue(ValidateCpf(Number), "Number", "CPF é inválido")
-                .HasMaxLen(Number, 11, "Number", "O CPF não pode conter mais que 11 caracteres"));
+            if (!VerificaCPF())
+                throw new Exception("CPF Inválido! Não é possível criar Usuário");
         }
 
-        private bool ValidateCpf(string cpf)
+        public bool VerificaCPF()
         {
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -28,14 +28,14 @@ namespace QuickOrder.Core.Domain.ValueObjects
             string digito;
             int soma;
             int resto;
-            cpf = cpf.Trim();
-            cpf = cpf.Replace(".", "").Replace("-", "");
-            if (cpf.Length != 11)
+            CodigoCpf = CodigoCpf.Trim();
+            CodigoCpf = CodigoCpf.Replace(".", "").Replace("-", "");
+            if (CodigoCpf.Length != 11)
             {
                 return false;
             }
 
-            tempCpf = cpf.Substring(0, 9);
+            tempCpf = CodigoCpf.Substring(0, 9);
             soma = 0;
 
             for (int i = 0; i < 9; i++)
@@ -72,7 +72,7 @@ namespace QuickOrder.Core.Domain.ValueObjects
             }
 
             digito = digito + resto.ToString();
-            return cpf.EndsWith(digito);
+            return CodigoCpf.EndsWith(digito);
         }
     }
 }
