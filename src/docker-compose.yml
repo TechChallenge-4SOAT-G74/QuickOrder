@@ -10,6 +10,7 @@ services:
       - '8090:80'
     depends_on:
       - 'postgres'
+      - 'mongo'
     networks:
       - quickorderdb-network  
   postgres:
@@ -26,9 +27,22 @@ services:
     image: 'postgres:10.4'
     networks:
       - quickorderdb-network
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITDB_DATABASE: pedidostatus
+    ports:
+      - "27017:27017"
+    volumes:
+      - 'pedidostatus-mongodb-volume:/data/db'
+    networks:
+      - quickorderdb-network
 
 volumes:
   quickorderdb-postgresql-volume:
+  pedidostatus-mongodb-volume:
 
 networks:
   quickorderdb-network:
