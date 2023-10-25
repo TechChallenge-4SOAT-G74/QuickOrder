@@ -32,7 +32,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: mongo
-      MONGO_INITDB_DATABASE: pedidostatus
+      MONGO_INITDB_DATABASE: quickorderdb
     ports:
       - "27017:27017"
     volumes:
