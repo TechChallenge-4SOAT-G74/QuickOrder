@@ -16,9 +16,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{75D8BE0D-044A-485D-A1FA-0AD296535DE6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{569245F3-FC34-47D5-BAE0-BE6B8A5916A1}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickOrder.Adapters.Driven.MongoDB", "Adapters\Driven\Infra.MongoDB\QuickOrder.Adapters.Driven.MongoDB.csproj", "{E3C196D5-D1B4-41A1-B575-BD9FA6F5BBDA}"
 EndProject
@@ -35,6 +32,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Tests", "..\tests\Domain.Tests\Domain.Tests.csproj", "{A7CE4E48-A871-4FBB-BF04-BFDAF1A6005E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickOrder.Core.IoC", "Core\IoC\QuickOrder.Core.IoC.csproj", "{55F01792-2B19-410A-B4F2-3E3EAAA32AE6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "docker-compose", "docker-compose.dcproj", "{333C0BE3-2258-44E3-9777-D792484DBC45}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +73,10 @@ Global
 		{55F01792-2B19-410A-B4F2-3E3EAAA32AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55F01792-2B19-410A-B4F2-3E3EAAA32AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55F01792-2B19-410A-B4F2-3E3EAAA32AE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{333C0BE3-2258-44E3-9777-D792484DBC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{333C0BE3-2258-44E3-9777-D792484DBC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{333C0BE3-2258-44E3-9777-D792484DBC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{333C0BE3-2258-44E3-9777-D792484DBC45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,6 +94,7 @@ Global
 		{CD3B9EAD-7A20-441F-9780-489F6CFE2C61} = {0D2EBA29-C952-457D-AC8E-113042EA06FB}
 		{A7CE4E48-A871-4FBB-BF04-BFDAF1A6005E} = {75D8BE0D-044A-485D-A1FA-0AD296535DE6}
 		{55F01792-2B19-410A-B4F2-3E3EAAA32AE6} = {0D2EBA29-C952-457D-AC8E-113042EA06FB}
+		{333C0BE3-2258-44E3-9777-D792484DBC45} = {569245F3-FC34-47D5-BAE0-BE6B8A5916A1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {047CCB14-0855-45B5-AA42-1FEE0C154A72}
