@@ -31,7 +31,7 @@ namespace QuickOrder.Core.IoC
 
             services.AddScoped<IPedidoUseCase, PedidoUseCase>();
             services.AddScoped<IProdutoCriarUseCase, ProdutoCriarUseCase>();
-           
+
         }
     }
 }
