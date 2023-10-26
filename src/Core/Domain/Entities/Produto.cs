@@ -12,7 +12,7 @@ namespace QuickOrder.Core.Domain.Entities
             Preco = preco;
             Descricao = descricao;
             Foto = foto;
-            
+
 
             //ValidaProduto();
             // ValidaPreco();

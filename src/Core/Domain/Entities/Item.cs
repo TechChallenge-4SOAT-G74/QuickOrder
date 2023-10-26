@@ -1,6 +1,4 @@
-﻿using QuickOrder.Core.Domain.Enums;
-
-namespace QuickOrder.Core.Domain.Entities
+﻿namespace QuickOrder.Core.Domain.Entities
 {
     public class Item : EntityBase, IAggregateRoot
     {
