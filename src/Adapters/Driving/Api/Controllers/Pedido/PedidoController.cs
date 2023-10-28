@@ -6,8 +6,12 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Pedido
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PedidoController : ControllerBase
+    public class PedidoController : CustomController<PedidoController>
     {
+        public PedidoController(ILogger<PedidoController> logger) : base(logger)
+        {
+        }
+
         // GET: api/<PedidoController>
         [HttpGet]
         public IEnumerable<string> Get()

@@ -10,44 +10,75 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Gerenciamento
     [ApiController]
     public class ProdutoController : CustomController<ProdutoController>
     {
-        private readonly IProdutoCriarUseCase _produtoCriarUseCase;
+        private readonly IProdutoObterUseCase _produtoObterUseCase;
+            private readonly IProdutoCriarUseCase _produtoCriarUseCase;
+            private readonly IProdutoAtualizarUseCase _produtoatualizarUseCase;
+            private readonly IProdutoExcluirUseCase _produtoExcluirUseCase;
 
-        public ProdutoController(ILogger<ProdutoController> logger, IProdutoCriarUseCase produtoCriarUseCase) : base(logger)
+         public ProdutoController(ILogger<ProdutoController> logger, 
+            IProdutoObterUseCase produtoObterUseCase, 
+            IProdutoCriarUseCase produtoCriarUseCase, 
+            IProdutoAtualizarUseCase produtoatualizarUseCase, 
+            IProdutoExcluirUseCase produtoExcluirUseCase) : base(logger)
         {
+            _produtoObterUseCase = produtoObterUseCase;
             _produtoCriarUseCase = produtoCriarUseCase;
+            _produtoatualizarUseCase = produtoatualizarUseCase;
+            _produtoExcluirUseCase = produtoExcluirUseCase;
         }
 
-        // GET: api/<ProdutoController>
+        /// <summary>
+        /// Obter lista de produtos
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> Get()
         {
-            return new string[] { "value1", "value2" };
+            return Result(await _produtoObterUseCase.Execute());
         }
 
-        // GET api/<ProdutoController>/5
+        /// <summary>
+        /// Obter produto
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(int id)
         {
-            return "value";
+            return Result(await _produtoObterUseCase.Execute(id));
         }
 
-        // POST api/<ProdutoController>
+        /// <summary>
+        /// Criar Produto
+        /// </summary>
+        /// <param name="produto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ProdutoDto produto)
         {
             return Result(await _produtoCriarUseCase.Execute(produto));
         }
 
-        // PUT api/<ProdutoController>/5
+        /// <summary>
+        /// Atualizar Produto
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="produto"></param>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put([FromBody] ProdutoDto produto, int id )
         {
+            return Result(await _produtoatualizarUseCase.Execute(produto, id));
         }
 
-        // DELETE api/<ProdutoController>/5
+
+        /// <summary>
+        /// Excluir produto
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            return Result(await _produtoExcluirUseCase.Execute(id));
         }
     }
 }

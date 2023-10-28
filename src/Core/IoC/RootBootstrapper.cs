@@ -1,6 +1,7 @@
 ﻿using Application.UseCases.Pedido;
 using Microsoft.Extensions.DependencyInjection;
 using QuickOrder.Adapters.Driven.PostgresDB.Repositories;
+using QuickOrder.Core.Application.UseCases;
 using QuickOrder.Core.Application.UseCases.Pedido.Interfaces;
 using QuickOrder.Core.Application.UseCases.Produto;
 using QuickOrder.Core.Application.UseCases.Produto.Interfaces;
@@ -16,6 +17,8 @@ namespace QuickOrder.Core.IoC
 
             services.AddImplementations(ServiceLifetime.Scoped, typeof(IBaseRepository), assemblyTypes);
 
+            services.AddImplementations(ServiceLifetime.Scoped, typeof(IBaseUseCase), assemblyTypes);
+
             //Repositories
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IFuncionalidadeRepository, FuncionalidadeRepository>();
@@ -29,8 +32,11 @@ namespace QuickOrder.Core.IoC
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
-            services.AddScoped<IPedidoUseCase, PedidoUseCase>();
+            //services.AddScoped<IPedidoUseCase, PedidoUseCase>();
+            services.AddScoped<IProdutoAtualizarUseCase, ProdutoAtualizarUseCase>();
+            services.AddScoped<IProdutoExcluirUseCase, ProdutoExcluirUseCase>();
             services.AddScoped<IProdutoCriarUseCase, ProdutoCriarUseCase>();
+            services.AddScoped<IProdutoObterUseCase, ProdutoObterUseCase>();
 
         }
     }

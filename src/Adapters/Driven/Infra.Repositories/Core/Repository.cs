@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QuickOrder.Core.Domain.Adapters;
 using QuickOrder.Core.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace QuickOrder.Adapters.Driven.PostgresDB.Core
 {
@@ -32,18 +33,34 @@ namespace QuickOrder.Adapters.Driven.PostgresDB.Core
                 : _context.Set<TEntity>().AsQueryable();
         }
 
-        public async Task<List<T>> Get()
+        public async Task<List<T>> GetAll()
         {
             var result = await Queryable()
                 .ToListAsync();
             return result;
         }
 
-        public async Task<T> GetById(object id)
+        public async Task<T> GetFirst(object id)
         {
             var result = await Queryable()
                 .Where(x => x.Id.Equals(id))
                 .FirstOrDefaultAsync();
+            return result;
+        }
+
+         public async Task<T> GetFirst(Expression<Func<T, bool>> predicate)
+        {
+            var result = await Queryable()
+                .Where(predicate)
+                .FirstOrDefaultAsync();
+            return result;
+        }
+
+        public async Task<List<T>> GetAll(Expression<Func<T, bool>> predicate)
+        {
+            var result = await Queryable()
+                .Where(predicate)
+                .ToListAsync();
             return result;
         }
 
