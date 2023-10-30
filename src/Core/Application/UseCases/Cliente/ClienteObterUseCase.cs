@@ -18,7 +18,7 @@ namespace QuickOrder.Core.Application.UseCases.Cliente
             ServiceResult<List<ClienteDto>> result = new();
             try
             {
-                var clientes = await _clienteRepository.GetAll(x => x.Usuario.Status);
+                var clientes = await _clienteRepository.GetAllClienteComUsuario(x => x.Usuario.Status);
 
                 var list = new List<ClienteDto>();
 
