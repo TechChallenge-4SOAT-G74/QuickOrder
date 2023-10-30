@@ -1,9 +1,4 @@
 ﻿using QuickOrder.Core.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace QuickOrder.Core.Application.Dtos
 {
@@ -17,5 +12,6 @@ namespace QuickOrder.Core.Application.Dtos
         public double ValorPedido { get; set; }
         public string? Observacao { get; set; }
         public bool PedidoPago { get; set; }
+        public string? StatusPedido { get; set; }
     }
 }
