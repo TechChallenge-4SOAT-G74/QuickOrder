@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickOrder.Adapters.Driven.MongoDB", "Adapters\Driven\Infra.MongoDB\QuickOrder.Adapters.Driven.MongoDB.csproj", "{E3C196D5-D1B4-41A1-B575-BD9FA6F5BBDA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickOrder.Adapters.Driven.PostgresDB", "Adapters\Driven\Infra.Repositories\QuickOrder.Adapters.Driven.PostgresDB.csproj", "{F5E870FC-F2FE-4EF2-9971-D06ED786B8ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickOrder.Adapters.Driven.PostgresDB", "Adapters\Driven\Infra.PostgresDB\QuickOrder.Adapters.Driven.PostgresDB.csproj", "{F5E870FC-F2FE-4EF2-9971-D06ED786B8ED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickOrder.Adapters.Driven.ServiceBus", "Adapters\Driven\Infra.ServiceBus\QuickOrder.Adapters.Driven.ServiceBus.csproj", "{21332EBC-EEC0-48AA-8220-95DD6723D240}"
 EndProject

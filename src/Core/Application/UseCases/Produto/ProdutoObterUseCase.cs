@@ -25,11 +25,11 @@ namespace QuickOrder.Core.Application.UseCases.Produto
 
                 foreach (var produto in produtos)
                 {
-                    list.Add(new ProdutoDto 
-                    { 
+                    list.Add(new ProdutoDto
+                    {
                         Categoria = ECategoriaExtensions.ToDescriptionString((ECategoria)produto.CategoriaId),
-                        Nome = produto.Nome.Nome, 
-                        Descricao = produto.Descricao, 
+                        Nome = produto.Nome.Nome,
+                        Descricao = produto.Descricao,
                         Preco = produto.Preco,
                         ProdutoItens = produto.ProdutoItens == null ? null : ProdutoItensDto(produto.ProdutoItens)
                     });

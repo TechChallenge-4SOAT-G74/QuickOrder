@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
+using QuickOrder.Adapters.Driven.MongoDB.Core;
 using QuickOrder.Adapters.Driven.PostgresDB.Core;
 using QuickOrder.Adapters.Driving.Api.Configurations;
 using QuickOrder.Core.Domain.Entities;
@@ -11,6 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<DatabaseSettings>(
     builder.Configuration.GetSection("DatabaseSettings")
 );
+
+builder.Services.Configure<DatabaseMongoDBSettings>(
+    builder.Configuration.GetSection("DatabaseMongoDBSettings")
+);
+
 var migrationsAssembly = typeof(ApplicationContext).Assembly.GetName().Name;
 var migrationTable = "__IntegradorPlurallMigrationsHistory";
 var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
@@ -25,7 +32,11 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 });
 
-
+builder.Services.AddSingleton<IMongoDatabase>(options => {
+    var settings = builder.Configuration.GetSection("DatabaseMongoDBSettings").Get<DatabaseMongoDBSettings>();
+    var client = new MongoClient(settings.ConnectionString);
+    return client.GetDatabase(settings.DatabaseName);
+});
 
 builder.Services.AddDependencyInjectionConfiguration();
 builder.Services.AddControllers()

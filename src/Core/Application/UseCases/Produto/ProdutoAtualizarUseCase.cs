@@ -50,6 +50,6 @@ namespace QuickOrder.Core.Application.UseCases.Produto
             return result;
         }
 
-      
+
     }
 }

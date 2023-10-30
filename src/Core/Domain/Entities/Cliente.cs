@@ -14,7 +14,7 @@ namespace QuickOrder.Core.Domain.Entities
             Pedidos = pedidos;
         }
 
-        public Cliente(string ddd, string numeroTelefone, DateTime dataNascimento, Usuario usuario)
+        public Cliente(string ddd, string numeroTelefone, DateTime? dataNascimento, Usuario usuario)
         {
             Telefone = new TelefoneVo(ddd, numeroTelefone);
             DataNascimento = dataNascimento;

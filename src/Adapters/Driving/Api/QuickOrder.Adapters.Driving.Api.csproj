@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\IoC\QuickOrder.Core.IoC.csproj" />
+    <ProjectReference Include="..\..\Driven\Infra.PostgresDB\QuickOrder.Adapters.Driven.PostgresDB.csproj" />
   </ItemGroup>
 
 </Project>

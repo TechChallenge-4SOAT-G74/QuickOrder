@@ -1,10 +1,13 @@
-﻿namespace QuickOrder.Core.Application.Dtos
+﻿using QuickOrder.Core.Domain.Entities;
+
+namespace QuickOrder.Core.Application.Dtos
 {
     public class UsuarioDto
     {
-        public string Nome { get; private set; }
-        public string Cpf { get; private set; }
-        public string Email { get; private set; }
-        public bool Status { get; private set; }
+        public string Nome { get; set; }
+        public string Cpf { get; set; }
+        public string Email { get; set; }
+        public bool Status { get; set; }
+        public string Role { get; set; }
     }
 }

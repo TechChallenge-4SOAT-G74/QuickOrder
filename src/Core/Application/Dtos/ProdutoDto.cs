@@ -1,12 +1,10 @@
-﻿using QuickOrder.Core.Domain.Entities;
-
-namespace QuickOrder.Core.Application.Dtos
+﻿namespace QuickOrder.Core.Application.Dtos
 {
     public class ProdutoDto
     {
         public string Nome { get; set; }
         public string Categoria { get; set; }
-        
+
         public double Preco { get; set; }
         public string? Descricao { get; set; }
         public string? Foto { get; set; }

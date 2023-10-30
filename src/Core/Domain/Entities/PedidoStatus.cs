@@ -4,8 +4,8 @@ namespace QuickOrder.Core.Domain.Entities
 {
     public class PedidoStatus : EntityMongoBase
     {
-        public virtual int NumeroPedido { get; set; }
-        public virtual EStatusPedido StatusPedidoEnum { get; set; }
-        public virtual DateTime DataAtualizacao { get; set; }
+        public int NumeroPedido { get; set; }
+        public string StatusPedido { get; set; }
+        public DateTime DataAtualizacao { get; set; }
     }
 }

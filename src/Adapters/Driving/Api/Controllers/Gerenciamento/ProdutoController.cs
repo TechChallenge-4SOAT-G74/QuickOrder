@@ -11,19 +11,19 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Gerenciamento
     public class ProdutoController : CustomController<ProdutoController>
     {
         private readonly IProdutoObterUseCase _produtoObterUseCase;
-            private readonly IProdutoCriarUseCase _produtoCriarUseCase;
-            private readonly IProdutoAtualizarUseCase _produtoatualizarUseCase;
-            private readonly IProdutoExcluirUseCase _produtoExcluirUseCase;
+        private readonly IProdutoCriarUseCase _produtoCriarUseCase;
+        private readonly IProdutoAtualizarUseCase _produtoAtualizarUseCase;
+        private readonly IProdutoExcluirUseCase _produtoExcluirUseCase;
 
-         public ProdutoController(ILogger<ProdutoController> logger, 
-            IProdutoObterUseCase produtoObterUseCase, 
-            IProdutoCriarUseCase produtoCriarUseCase, 
-            IProdutoAtualizarUseCase produtoatualizarUseCase, 
-            IProdutoExcluirUseCase produtoExcluirUseCase) : base(logger)
+        public ProdutoController(ILogger<ProdutoController> logger,
+           IProdutoObterUseCase produtoObterUseCase,
+           IProdutoCriarUseCase produtoCriarUseCase,
+           IProdutoAtualizarUseCase produtoAtualizarUseCase,
+           IProdutoExcluirUseCase produtoExcluirUseCase) : base(logger)
         {
             _produtoObterUseCase = produtoObterUseCase;
             _produtoCriarUseCase = produtoCriarUseCase;
-            _produtoatualizarUseCase = produtoatualizarUseCase;
+            _produtoAtualizarUseCase = produtoAtualizarUseCase;
             _produtoExcluirUseCase = produtoExcluirUseCase;
         }
 
@@ -65,9 +65,9 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Gerenciamento
         /// <param name="id"></param>
         /// <param name="produto"></param>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put([FromBody] ProdutoDto produto, int id )
+        public async Task<IActionResult> Put([FromBody] ProdutoDto produto, int id)
         {
-            return Result(await _produtoatualizarUseCase.Execute(produto, id));
+            return Result(await _produtoAtualizarUseCase.Execute(produto, id));
         }
 
 

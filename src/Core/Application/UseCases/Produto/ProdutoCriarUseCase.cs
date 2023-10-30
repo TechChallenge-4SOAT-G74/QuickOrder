@@ -22,18 +22,18 @@ namespace QuickOrder.Core.Application.UseCases.Produto
             ServiceResult result = new();
             try
             {
-                var produtoExiste = await _produtoRepository.GetFirst(x => x.Nome.Nome.Equals(produtoViewModel.Nome)) ;
+                var produtoExiste = await _produtoRepository.GetFirst(x => x.Nome.Nome.Equals(produtoViewModel.Nome));
                 if (produtoExiste != null)
                 {
                     result.AddError("Produto já existe.");
                     return result;
                 }
 
-                var produto = new ProdutoEntity (
+                var produto = new ProdutoEntity(
                     produtoViewModel.Nome,
-                    (int)(ECategoria)Enum.Parse(typeof(ECategoria), produtoViewModel.Categoria), 
-                    produtoViewModel.Preco, 
-                    produtoViewModel.Descricao, 
+                    (int)(ECategoria)Enum.Parse(typeof(ECategoria), produtoViewModel.Categoria),
+                    produtoViewModel.Preco,
+                    produtoViewModel.Descricao,
                     produtoViewModel.Foto
                     );
 
@@ -45,7 +45,7 @@ namespace QuickOrder.Core.Application.UseCases.Produto
 
                     await _produtoItemRepository.Insert(produtoItens);
                 }
-               
+
             }
             catch (Exception ex) { result.AddError(ex.Message); }
             return result;

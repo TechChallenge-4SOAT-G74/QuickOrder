@@ -13,7 +13,7 @@ namespace QuickOrder.Core.Domain.Enums
         [Description("Pagamento Aprovado")]
         Pago = 3,
 
-        [Description("Aguardando prepad=ro")]
+        [Description("Aguardando preparo")]
         AguardandoPreparo = 4,
 
         [Description("Em preparação")]
@@ -22,8 +22,11 @@ namespace QuickOrder.Core.Domain.Enums
         [Description("Pronto")]
         ProntoParaRetirada = 6,
 
+        [Description("Aguardando Retirada")]
+        AguardandoRetirada = 7,
+
         [Description("Finalizado")]
-        Finalizado = 7
+        Finalizado = 8
     }
 
     public static class EStatusPedidoExtensions

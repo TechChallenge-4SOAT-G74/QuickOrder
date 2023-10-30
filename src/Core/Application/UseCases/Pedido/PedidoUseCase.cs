@@ -1,8 +1,14 @@
-﻿using QuickOrder.Core.Application.UseCases.Pedido.Interfaces;
+﻿using QuickOrder.Core.Application.UseCases.Pagamento.Interfaces;
 
-namespace Application.UseCases.Pedido
+namespace QuickOrder.Core.Application.UseCases.Pedido
 {
-    public class PedidoUseCase : IPedidoUseCase
+    public abstract class PedidoUseCase
     {
+        private readonly IPagamentoUseCase _pagamentoUseCase;
+
+        public PedidoUseCase(IPagamentoUseCase pagamentoUseCase)
+        {
+            _pagamentoUseCase = pagamentoUseCase;
+        }
     }
 }

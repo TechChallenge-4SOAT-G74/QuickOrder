@@ -6,7 +6,7 @@ namespace QuickOrder.Core.Application.UseCases.Produto
 {
     public abstract class ProdutoUseCase
     {
-        protected static  List<ProdutoItem> ProdutoItens(List<ProdutoItemDto> dto, int produtoId)
+        protected static List<ProdutoItem> ProdutoItens(List<ProdutoItemDto> dto, int produtoId)
         {
             var produtoitens = new List<ProdutoItem>();
             foreach (var item in dto)
@@ -25,7 +25,7 @@ namespace QuickOrder.Core.Application.UseCases.Produto
             return produtoitens;
         }
 
-        protected static List<ProdutoItemDto> ProdutoItensDto (List<ProdutoItem> obj)
+        protected static List<ProdutoItemDto> ProdutoItensDto(List<ProdutoItem> obj)
         {
             var produtoitensDto = new List<ProdutoItemDto>();
             foreach (var item in obj)
