@@ -36,7 +36,7 @@ Antes de executar este projeto, os seguintes itens deverão estar instalados no 
 
 Passo a passo:
 
-* Baixar o projeto através do repositório do GitHub
+* Baixar o projeto através do repositório do **GitHub**
 * Abrir o projeto no Visual Studio 2022
 * Localizar o arquivo **docker-compose** no Solution Explorer:
 <br />
@@ -77,7 +77,7 @@ Passo a passo:
 
 Passo a passo:
 
-* Baixar o projeto através do repositório do GitHub
+* Baixar o projeto através do repositório do **GitHub**
 * Abrir o projeto no Visual Studio Code
 * Abrir alguma interface de linha de comando como, por exemplo, o **PowerShell** e navegar até a pasta **src** do Projeto:
 
