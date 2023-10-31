@@ -80,10 +80,25 @@ Passo a passo:
 * Baixar o projeto através do repositório do GitHub
 * Abrir o projeto no Visual Studio Code
 * Abrir alguma interface de linha de comando como, por exemplo, o **PowerShell** e navegar até a pasta **src** do Projeto:
+
+<br />
+
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/d1ab97a6-9c8f-407f-bc98-e0cdb08f860d)
+
+<br />
+
 * Executar o comando `docker-compose up -d`
 * Os containeres são levantados conforme imagem abaixo e poderão ser listados através do comando `docker ps`
+
+<br />
+
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/5f1ddad9-8a98-46a8-b88e-feb7446a07e7)
+
+<br />
+
 * Abrir algum browser e informar o seguinte endereço: **http://localhost:8090/swagger/index.html**
 * O resultado deverá ser conforme abaixo:
+
+<br />
+
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/c1150eb1-a25a-4ee2-aeb8-c0c03ede965f)
