@@ -38,7 +38,7 @@ Passo a passo:
 
 * Baixar o projeto através do repositório do GitHub
 * Abrir o projeto no Visual Studio 2022
-* Localizar o arquivo docker-compose no Solution Explorer:
+* Localizar o arquivo **docker-compose** no Solution Explorer:
 <br />
 
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/a4f481ce-4f13-4980-913d-f6751aec050a)
