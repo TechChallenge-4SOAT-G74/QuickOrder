@@ -2,6 +2,23 @@
 
 Projeto do Tech Challenge da FIAP - Fase 1
 
+**INTEGRANTES DO GRUPO 36**
+
+* Matheus Augusto Silva dos Santos
+matheus.santos8192@outlook.com
+
+* Moisés Barboza de Figueiredo Junior
+moises.figueiredo@gmail.com
+
+* Keilla Cristina Martins Conforto
+kcrismartins@gmail.com
+
+* Gabriela da Silva Lopes
+gabrieladslopes@gmail.com
+
+* Francisco Tadeu da Silva e Souza
+fsouza.thadeu@gmail.com
+
 ## Começando
 
 As instruções abaixo ajudarão a baixar e executar o projeto em máquina local.
@@ -46,8 +63,8 @@ Passo a passo:
 * Abrir o projeto no Visual Studio Code
 * Abrir alguma interface de linha de comando como, por exemplo, o **PowerShell** e navegar até a pasta **src** do Projeto:
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/d1ab97a6-9c8f-407f-bc98-e0cdb08f860d)
-* Executar o comando **docker-compose up -d**
-* Os containeres são levantados conforme imagem abaixo e poderão ser listados através do comando **docker ps**
+* Executar o comando `docker-compose up -d`
+* Os containeres são levantados conforme imagem abaixo e poderão ser listados através do comando `docker ps`
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/5f1ddad9-8a98-46a8-b88e-feb7446a07e7)
 * Abrir algum browser e informar o seguinte endereço: **http://localhost:8090/swagger/index.html**
 * O resultado deverá ser conforme abaixo:
