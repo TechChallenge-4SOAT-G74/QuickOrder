@@ -1,18 +1,6 @@
 version: '3.4'
 
 services:
-  quickorder.adapters.driving.api:
-    image: ${DOCKER_REGISTRY-}quickorderadaptersdrivingapi
-    build:
-      context: .
-      dockerfile: Adapters/Driving/Api/Dockerfile
-    ports:
-      - '8090:80'
-    depends_on:
-      - 'postgres'
-      - 'mongo'
-    networks:
-      - quickorderdb-network  
   postgres:
     ports:
       - '5432:5432'
@@ -27,19 +15,35 @@ services:
     image: 'postgres:10.4'
     networks:
       - quickorderdb-network
-  mongo:
-    image: mongo
+  mongodb:
+    image: mongo:latest
+    container_name: quickorderdb-mongodb
+    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongo
       MONGO_INITDB_ROOT_PASSWORD: mongo
       MONGO_INITDB_DATABASE: quickorderdb
     ports:
       - "27017:27017"
+    expose:
+      - "27017"
+    command: mongod --auth
     volumes:
       - 'quickorderdb-mongodb-volume:/data/db'
     networks:
       - quickorderdb-network
-
+  quickorder.adapters.driving.api:
+    image: ${DOCKER_REGISTRY-}quickorderadaptersdrivingapi
+    build:
+      context: .
+      dockerfile: Adapters/Driving/Api/Dockerfile
+    ports:
+      - '8090:80'
+    depends_on:
+      - 'postgres'
+      - 'mongodb'
+    networks:
+      - quickorderdb-network  
 volumes:
   quickorderdb-postgresql-volume:
   quickorderdb-mongodb-volume:

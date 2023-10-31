@@ -1,11 +1,14 @@
 ﻿using QuickOrder.Core.Domain.Entities;
+using System.Linq.Expressions;
 
 namespace QuickOrder.Core.Domain.Adapters
 {
     public interface IRepository<T> where T : EntityBase
     {
-        Task<List<T>> Get();
-        Task<T> GetById(object id);
+        Task<List<T>> GetAll();
+        Task<T> GetFirst(object id);
+        Task<T> GetFirst(Expression<Func<T, bool>> predicate);
+        Task<List<T>> GetAll(Expression<Func<T, bool>> predicate);
         Task<T> Insert(T entity);
         Task<List<T>> Insert(List<T> entities);
         Task<T> Update(T entity);
