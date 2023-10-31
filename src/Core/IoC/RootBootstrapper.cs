@@ -1,20 +1,20 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using QuickOrder.Adapters.Driven.MongoDB.Core;
+using QuickOrder.Adapters.Driven.MongoDB.Repositories;
 using QuickOrder.Adapters.Driven.PostgresDB.Repositories;
 using QuickOrder.Core.Application.UseCases;
 using QuickOrder.Core.Application.UseCases.Cliente;
 using QuickOrder.Core.Application.UseCases.Cliente.Interfaces;
-using QuickOrder.Core.Application.UseCases.Produto;
-using QuickOrder.Core.Application.UseCases.Produto.Interfaces;
 using QuickOrder.Core.Application.UseCases.Funcionario;
 using QuickOrder.Core.Application.UseCases.Funcionario.Interfaces;
-using QuickOrder.Core.Domain.Repositories;
-using QuickOrder.Core.Domain.Adapters;
-using QuickOrder.Adapters.Driven.MongoDB.Repositories;
-using QuickOrder.Core.Application.UseCases.Pagamento.Interfaces;
 using QuickOrder.Core.Application.UseCases.Pagamento;
-using QuickOrder.Core.Application.UseCases.Pedido.Interfaces;
+using QuickOrder.Core.Application.UseCases.Pagamento.Interfaces;
 using QuickOrder.Core.Application.UseCases.Pedido;
-using QuickOrder.Adapters.Driven.MongoDB.Core;
+using QuickOrder.Core.Application.UseCases.Pedido.Interfaces;
+using QuickOrder.Core.Application.UseCases.Produto;
+using QuickOrder.Core.Application.UseCases.Produto.Interfaces;
+using QuickOrder.Core.Domain.Adapters;
+using QuickOrder.Core.Domain.Repositories;
 
 namespace QuickOrder.Core.IoC
 {
@@ -33,7 +33,7 @@ namespace QuickOrder.Core.IoC
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
             services.AddScoped<IPedidoRepository, PedidoRepository>();
-           
+
             services.AddScoped<IProdutoItemPedidoRepository, ProdutoItemPedidoRepository>();
             services.AddScoped<IProdutoItemRepository, ProdutoItemRepository>();
             services.AddScoped<IProdutoRepository, ProdutoRepository>();

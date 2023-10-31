@@ -1,5 +1,4 @@
 ﻿using QuickOrder.Core.Application.Dtos;
-using QuickOrder.Core.Application.UseCases.Pagamento.Interfaces;
 using QuickOrder.Core.Application.UseCases.Pedido.Interfaces;
 using QuickOrder.Core.Domain.Adapters;
 using QuickOrder.Core.Domain.Repositories;

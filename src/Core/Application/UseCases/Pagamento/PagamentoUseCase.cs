@@ -46,7 +46,7 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
                 StatusPagamento = EStatusPagamentoExtensions.ToDescriptionString(EStatusPagamento.Aprovado),
             };
 
-           await _statusRepository.Create(pagamentoStatus);
+            await _statusRepository.Create(pagamentoStatus);
         }
     }
 }

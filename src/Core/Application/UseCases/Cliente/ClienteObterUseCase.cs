@@ -29,13 +29,13 @@ namespace QuickOrder.Core.Application.UseCases.Cliente
                         Nome = cliente.Usuario.Nome.Nome,
                         Cpf = cliente.Usuario.Cpf.CodigoCpf,
                         Email = cliente.Usuario.Email.Endereco,
-                       DDD = cliente.Telefone.DDD,
-                       Telefone = cliente.Telefone.Numero,
-                       DataNascimento = cliente.DataNascimento,
+                        DDD = cliente.Telefone.DDD,
+                        Telefone = cliente.Telefone.Numero,
+                        DataNascimento = cliente.DataNascimento,
                     });
                 }
 
-        result.Data = list;
+                result.Data = list;
             }
             catch (Exception ex) { result.AddError(ex.Message); }
             return result;

@@ -1,7 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
-using QuickOrder.Adapters.Driven.MongoDB.Core;
 using QuickOrder.Adapters.Driven.PostgresDB.Core;
 using QuickOrder.Adapters.Driving.Api.Configurations;
 using QuickOrder.Core.Domain.Entities;
@@ -32,13 +31,38 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 });
 
-builder.Services.AddSingleton<IMongoDatabase>(options => {
+builder.Services.AddSingleton<IMongoDatabase>(options =>
+{
     var settings = builder.Configuration.GetSection("DatabaseMongoDBSettings").Get<DatabaseMongoDBSettings>();
     var client = new MongoClient(settings.ConnectionString);
     return client.GetDatabase(settings.DatabaseName);
 });
 
 builder.Services.AddDependencyInjectionConfiguration();
+
+var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(o => o.AddPolicy("QO", builder =>
+{
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+}));
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: myAllowSpecificOrigins,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin()
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                                .WithOrigins("http://http://localhost:8090");
+                      });
+});
+
+
 builder.Services.AddControllers()
     .AddJsonOptions(
         options => options.JsonSerializerOptions.PropertyNamingPolicy = null);
@@ -75,7 +99,9 @@ app.UseReDoc(c =>
     c.SpecUrl = "/swagger/v1/swagger.json";
 });
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+
+app.UseCors(myAllowSpecificOrigins);
 
 app.UseAuthorization();
 

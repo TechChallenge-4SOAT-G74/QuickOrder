@@ -1,9 +1,9 @@
 ﻿using QuickOrder.Core.Application.Dtos;
 using QuickOrder.Core.Application.UseCases.Cliente.Interfaces;
-using QuickOrder.Core.Domain.Repositories;
-using UsuarioEntity = QuickOrder.Core.Domain.Entities.Usuario;
-using ClienteEntity = QuickOrder.Core.Domain.Entities.Cliente;
 using QuickOrder.Core.Domain.Enums;
+using QuickOrder.Core.Domain.Repositories;
+using ClienteEntity = QuickOrder.Core.Domain.Entities.Cliente;
+using UsuarioEntity = QuickOrder.Core.Domain.Entities.Usuario;
 
 namespace QuickOrder.Core.Application.UseCases.Cliente
 {
