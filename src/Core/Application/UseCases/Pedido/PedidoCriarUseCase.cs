@@ -28,7 +28,9 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             try
             {
                 var cliente = await _clienteRepository.GetFirst(numeroCliente);
-                var numeroPedido = new Random().Next(1, 3);
+
+                //TODO: Gerando número de pedido randônimo até a fila de pedido ser criada 
+                var numeroPedido = new Random().Next(1, 3); 
                 var carrinho = new Carrinho(numeroPedido, numeroCliente, 0, DateTime.Now, null);
 
                 var pedido = new PedidoEntity(numeroPedido, DateTime.Now, null, cliente?.Id, carrinho.Id.ToString(), null, 0, false);

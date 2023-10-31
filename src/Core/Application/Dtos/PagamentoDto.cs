@@ -2,8 +2,9 @@
 {
     public class PagamentoDto
     {
-        public int ClienteId { get; set; }
-        public int PedidoId { get; set; }
+        public string NumeroPedido { get; set; }
+        public string? NumeroCliente { get; set; }
+        public string CarrinhoId { get; set; }
         public double Valor { get; set; }
     }
 }
