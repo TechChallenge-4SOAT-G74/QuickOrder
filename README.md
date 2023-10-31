@@ -1,10 +1,10 @@
 # Quick Order - Tech Challenge FIAP
 
-Descrição projeto.
+Projeto do Tech Challenge da FIAP - Fase 1
 
-## Getting Started
+## Começando
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+As instruções abaixo ajudarão a baixar e executar o projeto em máquina local.
 
 ### Pré-Requisitos
 
