@@ -13,5 +13,6 @@ namespace QuickOrder.Core.Application.Dtos
         public string? Observacao { get; set; }
         public bool PedidoPago { get; set; }
         public string? StatusPedido { get; set; }
+        public string? CarrinhoId { get; set; }
     }
 }

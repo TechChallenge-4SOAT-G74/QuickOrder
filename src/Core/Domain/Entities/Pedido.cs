@@ -23,7 +23,7 @@
             PedidoPago = pedidoPago;
             Observacao = observacao;
 
-            //CalculaPrecoPedido();
+            CalculaPrecoPedido();
         }
 
         public virtual int NumeroPedido { get; set; }
@@ -39,7 +39,24 @@
 
         public void CalculaPrecoPedido()
         {
-            //TODO: Calculo o ValorPedido
+            if (this.ProdutosItemsPedido != null)
+            {
+                var quantidadeProduto = 0;
+                var valorProduto = 0.0;
+                var valorPedido = 0.0;
+
+                foreach (var produto in this.ProdutosItemsPedido.ToList())
+                {
+
+                    quantidadeProduto += produto.QuantidadeProduto;
+                    valorProduto += produto.ProdutoItem.Quantidade * produto.ProdutoItem.Item.Valor;
+
+                    valorPedido += quantidadeProduto * valorProduto;
+                }
+
+                this.ValorPedido = this.ValorPedido < valorPedido ? valorPedido : this.ValorPedido;
+            }
+
         }
     }
 }

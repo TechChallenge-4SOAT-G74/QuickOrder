@@ -17,7 +17,7 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
 
         public async Task<bool> ConfirmarPagamento(PagamentoDto pagamentoDto)
         {
-            var pedido = await _statusRepository.GetValue("NumeroPedido", pagamentoDto.PedidoId.ToString());
+            var pedido = await _statusRepository.GetValue("NumeroPedido", pagamentoDto.NumeroPedido);
 
             if (pedido != null)
             {
@@ -39,8 +39,8 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
         {
             var pagamentoStatus = new PagamentoStatus
             {
-                NumeroCliente = pagamentoDto.ClienteId.ToString(),
-                NumeroPedido = pagamentoDto.PedidoId.ToString(),
+                NumeroCliente = pagamentoDto.NumeroCliente,
+                NumeroPedido = pagamentoDto.NumeroPedido,
                 DataAtualizacao = DateTime.Now,
                 Valor = pagamentoDto.Valor,
                 StatusPagamento = EStatusPagamentoExtensions.ToDescriptionString(EStatusPagamento.Aprovado),

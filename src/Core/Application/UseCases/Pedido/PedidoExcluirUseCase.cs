@@ -6,13 +6,13 @@ using QuickOrder.Core.Domain.Repositories;
 
 namespace QuickOrder.Core.Application.UseCases.Pedido
 {
-    public class PedidoExcluirUseCase : PedidoUseCase, IPedidoExcluirUseCase
+    public class PedidoExcluirUseCase : IPedidoExcluirUseCase
     {
         private readonly IPedidoRepository _pedidoRepository;
         private readonly ICarrinhoRepository _carrinhoRepository;
         private readonly IPedidoStatusRepository _pedidoStatusRepository;
 
-        public PedidoExcluirUseCase(IPagamentoUseCase pagamentoUseCase, IPedidoRepository pedidoRepository, ICarrinhoRepository carrinhoRepository, IPedidoStatusRepository pedidoStatusRepository) : base(pagamentoUseCase)
+        public PedidoExcluirUseCase(IPedidoRepository pedidoRepository, ICarrinhoRepository carrinhoRepository, IPedidoStatusRepository pedidoStatusRepository)
         {
             _pedidoRepository = pedidoRepository;
             _carrinhoRepository = carrinhoRepository;

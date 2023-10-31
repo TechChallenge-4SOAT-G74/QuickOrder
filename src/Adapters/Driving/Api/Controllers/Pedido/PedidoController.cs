@@ -67,21 +67,9 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Pedido
         /// <param name="pedidoDto"></param>
         /// <returns></returns>
         [HttpPut("adicionaritemaopedido/{id}")]
-        public async Task<IActionResult> AdicionarItemAoPedido(int id, [FromBody] PedidoDto pedidoDto)
+        public async Task<IActionResult> AlterarItemAoPedido(string id, [FromBody] PedidoDto pedidoDto)
         {
-            return Result(await _pedidoAtualizarUseCase.AdicionarItemAoPedido(id, pedidoDto));
-        }
-
-        /// <summary>
-        /// Remover item ao Pedido
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="pedidoDto"></param>
-        /// <returns></returns>
-        [HttpPut("remoberitemaopedido/{id}")]
-        public async Task<IActionResult> RemoverItemDoPedido(int id, [FromBody] PedidoDto pedidoDto)
-        {
-            return Result(await _pedidoAtualizarUseCase.RemoverItemDoPedido(id, pedidoDto));
+            return Result(await _pedidoAtualizarUseCase.AlterarItemAoPedido(id, pedidoDto));
         }
 
         /// <summary>
@@ -113,9 +101,9 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Pedido
         /// <param name="status"></param>
         /// <returns></returns>
         [HttpPut("alterarstatuspedido/{id}")]
-        public async Task<IActionResult> AlterarStatusPedido(int id, string status)
+        public async Task<IActionResult> AlterarStatusPedido(string id, [FromBody] PedidoStatusDto pedidoStatusDto)
         {
-            return Result(await _pedidoAtualizarUseCase.AlterarStatusPedido(id, status));
+            return Result(await _pedidoAtualizarUseCase.AlterarStatusPedido(id, pedidoStatusDto));
         }
 
         /// <summary>

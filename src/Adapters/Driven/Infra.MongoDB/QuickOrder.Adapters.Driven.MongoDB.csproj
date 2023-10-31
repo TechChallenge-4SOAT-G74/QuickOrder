@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Mapping\**" />
+    <EmbeddedResource Remove="Mapping\**" />
+    <None Remove="Mapping\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="DbConnectionModel.cs" />
     <Compile Remove="IEntry.cs" />
     <Compile Remove="MongoDBBaseRepository.cs" />
@@ -20,10 +26,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core\Domain\QuickOrder.Core.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mapping\" />
   </ItemGroup>
 
 </Project>

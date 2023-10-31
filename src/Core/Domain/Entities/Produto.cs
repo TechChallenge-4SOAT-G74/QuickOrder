@@ -15,8 +15,7 @@ namespace QuickOrder.Core.Domain.Entities
             ProdutoItens = produtoItens;
 
 
-            //ValidaProduto();
-            // ValidaPreco();
+            ValidaPreco();
         }
 
         public virtual NomeVo Nome { get; set; }
@@ -33,14 +32,25 @@ namespace QuickOrder.Core.Domain.Entities
             throw new NotImplementedException();
         }
 
-        //public void ValidaProduto()
-        //{
-        //    //TODO: Validar estrutura Produto
-        //}
 
-        //public void ValidaPreco()
-        //{
-        //    //TODO: Validar se o preço default do Produto que possui items não pode ser inferior à soma do valor destes items
-        //}
+        public void ValidaPreco()
+        {
+            if (this.ProdutoItens != null)
+            {
+                var quantidadeItens = 0;
+                var valorItens = 0.0;
+                var valorProduto = 0.0;
+
+                foreach (var pi in this.ProdutoItens.ToList())
+                {
+                    quantidadeItens += pi.Quantidade;
+                    valorItens += pi.Item.Valor;
+
+                    valorProduto = valorItens * quantidadeItens;
+                }
+
+                this.Preco = this.Preco < valorProduto ? valorProduto : this.Preco;
+            }
+        }
     }
 }
