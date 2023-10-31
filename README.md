@@ -92,7 +92,8 @@ Passo a passo:
 
 <br />
 
-![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/5f1ddad9-8a98-46a8-b88e-feb7446a07e7)
+![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/8926e0d6-b16f-4369-bb48-877147edfd2e)
+
 
 <br />
 
