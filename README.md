@@ -30,6 +30,8 @@ Antes de executar este projeto, os seguintes itens deverão estar instalados no 
 * Docker
 * Visual Studio 2022 ou Visual Studio Code
 
+<br />
+
 ### Instalação pelo Visual Studio 2022
 
 Passo a passo:
@@ -37,23 +39,39 @@ Passo a passo:
 * Baixar o projeto através do repositório do GitHub
 * Abrir o projeto no Visual Studio 2022
 * Localizar o arquivo docker-compose no Solution Explorer
+<br />
 
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/a4f481ce-4f13-4980-913d-f6751aec050a)
 
+<br />
+
 * Clicar nele com o botão direito e selecionar **Set as Startup Projetct**:
+
+<br />
 
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/f16770a5-ed9e-47df-ad84-b8363ca79832)
 
+<br />
 
 * Clicar na opção **Docker Compose** da barra de ferramentas padrão:
 
+<br />
+
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/495ec4ef-9b0f-4037-8f0b-7390c485a616)
+
+<br />
+
 * O Visual Studio criará os containers e exibirá a tela do Swagger da API:
+
+<br />
+
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/c6b1d930-5ea2-459d-a116-a9f960c72c7e)
+
+<br />
 
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/4bac9341-7130-4445-b675-88adfa3ccb53)
 
-
+<br />
 
 ### Instalação pelo Visual Studio Code
 
