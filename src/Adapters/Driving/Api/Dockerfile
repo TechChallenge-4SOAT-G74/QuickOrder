@@ -7,16 +7,22 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Api/Api.csproj", "Api/"]
-RUN dotnet restore "Api/Api.csproj"
+COPY ["Adapters/Driving/Api/QuickOrder.Adapters.Driving.Api.csproj", "Adapters/Driving/Api/"]
+COPY ["Core/IoC/QuickOrder.Core.IoC.csproj", "Core/IoC/"]
+COPY ["Adapters/Driven/Infra.MongoDB/QuickOrder.Adapters.Driven.MongoDB.csproj", "Adapters/Driven/Infra.MongoDB/"]
+COPY ["Core/Domain/QuickOrder.Core.Domain.csproj", "Core/Domain/"]
+COPY ["Adapters/Driven/Infra.PostgresDB/QuickOrder.Adapters.Driven.PostgresDB.csproj", "Adapters/Driven/Infra.PostgresDB/"]
+COPY ["Adapters/Driven/Infra.ServiceBus/QuickOrder.Adapters.Driven.ServiceBus.csproj", "Adapters/Driven/Infra.ServiceBus/"]
+COPY ["Core/Application/QuickOrder.Core.Application.csproj", "Core/Application/"]
+RUN dotnet restore "Adapters/Driving/Api/QuickOrder.Adapters.Driving.Api.csproj"
 COPY . .
-WORKDIR "/src/Api"
-RUN dotnet build "Api.csproj" -c Release -o /app/build
+WORKDIR "/src/Adapters/Driving/Api"
+RUN dotnet build "QuickOrder.Adapters.Driving.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "QuickOrder.Adapters.Driving.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Api.dll"]
+ENTRYPOINT ["dotnet", "QuickOrder.Adapters.Driving.Api.dll"]

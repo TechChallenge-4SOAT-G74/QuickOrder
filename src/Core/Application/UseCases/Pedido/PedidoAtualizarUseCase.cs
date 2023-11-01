@@ -1,6 +1,4 @@
-﻿using MongoDB.Bson;
-using QuickOrder.Core.Application.Dtos;
-using QuickOrder.Core.Application.UseCases.Pagamento;
+﻿using QuickOrder.Core.Application.Dtos;
 using QuickOrder.Core.Application.UseCases.Pagamento.Interfaces;
 using QuickOrder.Core.Application.UseCases.Pedido.Interfaces;
 using QuickOrder.Core.Domain.Adapters;
@@ -44,10 +42,10 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
                             null
                         ));
                     }
-                    
+
                 }
 
-                var carrinho =  await _carrinhoRepository.Get(id);
+                var carrinho = await _carrinhoRepository.Get(id);
 
                 carrinho.DataAtualizacao = DateTime.Now;
                 carrinho.Valor = pedidoDto.ValorPedido;

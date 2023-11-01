@@ -1,6 +1,6 @@
-version: '3.4'
+version: '3.5'
 
-services:
+services: 
   postgres:
     ports:
       - '5432:5432'
@@ -12,7 +12,7 @@ services:
       - POSTGRES_DB=quickorderdb
     volumes:
       - 'quickorderdb-postgresql-volume:/var/lib/postgresql/data'
-    image: 'postgres:10.4'
+    image: 'postgres:latest'
     networks:
       - quickorderdb-network
   mongodb:
@@ -33,20 +33,24 @@ services:
     networks:
       - quickorderdb-network
   quickorder.adapters.driving.api:
-    image: ${DOCKER_REGISTRY-}quickorderadaptersdrivingapi
+    image: ${DOCKER_REGISTRY-}quickorder-api
+    volumes:
+      - 'api-volume:/var/www/html'
     build:
       context: .
       dockerfile: Adapters/Driving/Api/Dockerfile
     ports:
       - '8090:80'
+    restart: always 
     depends_on:
       - 'postgres'
       - 'mongodb'
     networks:
-      - quickorderdb-network  
+      - quickorderdb-network         
 volumes:
   quickorderdb-postgresql-volume:
   quickorderdb-mongodb-volume:
+  api-volume:
 
 networks:
   quickorderdb-network:

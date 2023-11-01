@@ -7,7 +7,7 @@ using QuickOrder.Core.Domain.Repositories;
 
 namespace QuickOrder.Core.Application.UseCases.Pedido
 {
-    public  class PedidoObterUseCase : IPedidoObterUseCase
+    public class PedidoObterUseCase : IPedidoObterUseCase
     {
         private readonly IPedidoRepository _pedidoRepository;
         private readonly IPedidoStatusRepository _pedidoStatusRepository;
@@ -24,7 +24,7 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             try
             {
                 var fila = await _pedidoStatusRepository.GetAll();
-                fila = fila.Where(x => !x.StatusPedido.Equals(EStatusPedido.Pago) 
+                fila = fila.Where(x => !x.StatusPedido.Equals(EStatusPedido.Pago)
                        || !x.StatusPedido.Equals(EStatusPedido.PendentePagamento)
                        || !x.StatusPedido.Equals(EStatusPedido.Finalizado));
 
@@ -42,7 +42,7 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             var result = new ServiceResult<PedidoDto>();
             try
             {
-                var pedido =  await _pedidoRepository.GetFirst(id);
+                var pedido = await _pedidoRepository.GetFirst(id);
 
                 var fila = await _pedidoStatusRepository.Get(pedido?.CarrinhoId);
 

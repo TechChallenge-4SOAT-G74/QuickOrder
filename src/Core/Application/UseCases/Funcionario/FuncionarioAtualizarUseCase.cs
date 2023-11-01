@@ -27,7 +27,7 @@ namespace QuickOrder.Core.Application.UseCases.Funcionario
                     result.AddError("Funcionario não encontrado.");
                     return result;
                 }
-                var usuario = new UsuarioEntity(funcionarioDto.Nome, funcionarioDto.Cpf, funcionarioDto.Email, funcionarioDto.Status, (int)(ERole)Enum.Parse(typeof(ERole),funcionarioDto.Role));
+                var usuario = new UsuarioEntity(funcionarioDto.Nome, funcionarioDto.Cpf, funcionarioDto.Email, funcionarioDto.Status, (int)(ERole)Enum.Parse(typeof(ERole), funcionarioDto.Role));
                 funcionarioExiste.Matricula = funcionarioDto.Matricula;
                 funcionarioExiste.Usuario = usuario;
 

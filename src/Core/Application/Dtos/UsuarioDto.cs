@@ -1,6 +1,4 @@
-﻿using QuickOrder.Core.Domain.Entities;
-
-namespace QuickOrder.Core.Application.Dtos
+﻿namespace QuickOrder.Core.Application.Dtos
 {
     public class UsuarioDto
     {

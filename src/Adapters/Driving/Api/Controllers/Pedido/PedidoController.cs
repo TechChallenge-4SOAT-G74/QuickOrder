@@ -16,10 +16,10 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Pedido
         private readonly IPedidoAtualizarUseCase _pedidoAtualizarUseCase;
         private readonly IPedidoExcluirUseCase _pedidoExcluirUseCase;
 
-        public PedidoController(ILogger<PedidoController> logger, 
-            IPedidoObterUseCase pedidoObterUseCase, 
-            IPedidoCriarUseCase pedidoCriarUseCase, 
-            IPedidoAtualizarUseCase pedidoAtualizarUseCase, 
+        public PedidoController(ILogger<PedidoController> logger,
+            IPedidoObterUseCase pedidoObterUseCase,
+            IPedidoCriarUseCase pedidoCriarUseCase,
+            IPedidoAtualizarUseCase pedidoAtualizarUseCase,
             IPedidoExcluirUseCase pedidoExcluirUseCase) : base(logger)
         {
             _pedidoObterUseCase = pedidoObterUseCase;

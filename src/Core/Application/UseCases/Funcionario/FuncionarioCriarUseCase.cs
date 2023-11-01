@@ -2,8 +2,8 @@
 using QuickOrder.Core.Application.UseCases.Funcionario.Interfaces;
 using QuickOrder.Core.Domain.Enums;
 using QuickOrder.Core.Domain.Repositories;
-using UsuarioEntity = QuickOrder.Core.Domain.Entities.Usuario;
 using FuncionarioEntity = QuickOrder.Core.Domain.Entities.Funcionario;
+using UsuarioEntity = QuickOrder.Core.Domain.Entities.Usuario;
 
 namespace QuickOrder.Core.Application.UseCases.Funcionario
 {
