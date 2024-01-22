@@ -1,25 +1,34 @@
 ﻿using Flurl.Http;
+using Microsoft.Extensions.Options;
 using QuickOrder.Adapters.Driven.MercadoPago.Interfaces;
 using QuickOrder.Adapters.Driven.MercadoPago.Requests;
 using QuickOrder.Adapters.Driven.MercadoPago.Responses;
+using QuickOrder.Core.Domain.Entities;
 
 namespace QuickOrder.Adapters.Driven.MercadoPago
 {
     public class MercadoPagoApi : IMercadoPagoApi
     {
-        private const string accessToken = "Bearer TEST-1167291272855659-012110-d246e58a055d1d29de3c408e19a46e69-1646738091";
-        private const int user_id = 1646738091;
-        private const string external_pos_id = "CAIXA01";
+        private readonly string _accessToken;
+        private readonly int _user_id = 1646738091;
+        private readonly string _external_pos_id;
+
+        public MercadoPagoApi(IOptions<MercadoPagoSettings> configuration)
+        {
+            _accessToken = configuration.Value.AccessToken;
+            _user_id = configuration.Value.User_id;
+            _external_pos_id = configuration.Value.External_pos_id;       
+        }
 
         public async Task<PaymentQrCodeResponse> GeraQrCodePagamento(PaymentQrCodeRequest request)
         {
             try
             {
-                string url = $"https://api.mercadopago.com/instore/orders/qr/seller/collectors/{user_id}/pos/{external_pos_id}/qrs";
+                string url = $"https://api.mercadopago.com/instore/orders/qr/seller/collectors/{_user_id}/pos/{_external_pos_id}/qrs";
 
                 var result = await url
                        .WithHeader("Content-Type", "application/json")
-                       .WithHeader("Authorization", accessToken)
+                       .WithOAuthBearerToken(_accessToken)
                        .PostJsonAsync(request)
                        .ReceiveJson<PaymentQrCodeResponse>();
 

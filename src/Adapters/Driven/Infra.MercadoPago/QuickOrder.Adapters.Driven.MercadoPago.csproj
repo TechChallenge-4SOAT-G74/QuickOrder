@@ -9,6 +9,12 @@
   <ItemGroup>
     <PackageReference Include="Flurl" Version="4.0.0" />
     <PackageReference Include="Flurl.Http" Version="4.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\tests\Domain.Tests\Domain.Tests.csproj" />
+    <ProjectReference Include="..\..\..\Core\Domain\QuickOrder.Core.Domain.csproj" />
   </ItemGroup>
 
 </Project>
