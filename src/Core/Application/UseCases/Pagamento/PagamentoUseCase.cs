@@ -1,18 +1,27 @@
-﻿using QuickOrder.Core.Application.Dtos;
+﻿using QuickOrder.Adapters.Driven.MercadoPago.Interfaces;
+using QuickOrder.Adapters.Driven.MercadoPago.Requests;
+using QuickOrder.Adapters.Driven.MercadoPago.Responses;
+using QuickOrder.Core.Application.Dtos;
 using QuickOrder.Core.Application.UseCases.Pagamento.Interfaces;
+using QuickOrder.Core.Application.UseCases.Pedido.Interfaces;
 using QuickOrder.Core.Domain.Adapters;
 using QuickOrder.Core.Domain.Entities;
 using QuickOrder.Core.Domain.Enums;
+using ItemRequest = QuickOrder.Adapters.Driven.MercadoPago.Requests.Item;
 
 namespace QuickOrder.Core.Application.UseCases.Pagamento
 {
     public class PagamentoUseCase : IPagamentoUseCase
     {
         private readonly IPagamentoStatusRepository _statusRepository;
+        private readonly IPedidoObterUseCase _pedidoObterUseCase;
+        private readonly IMercadoPagoApi _mercadoPagoApi;
 
-        public PagamentoUseCase(IPagamentoStatusRepository statusRepository)
+        public PagamentoUseCase(IPagamentoStatusRepository statusRepository, IPedidoObterUseCase pedidoObterUseCase, IMercadoPagoApi mercadoPagoApi)
         {
             _statusRepository = statusRepository;
+            _pedidoObterUseCase = pedidoObterUseCase;
+            _mercadoPagoApi = mercadoPagoApi;
         }
 
         public async Task<bool> ConfirmarPagamento(PagamentoDto pagamentoDto)
@@ -35,7 +44,7 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
             return true;
         }
 
-        public async Task EnviarPedidoPagamento(PagamentoDto pagamentoDto)
+        private async Task EnviarPedidoPagamento(PagamentoDto pagamentoDto)
         {
             var pagamentoStatus = new PagamentoStatus
             {
@@ -43,10 +52,57 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
                 NumeroPedido = pagamentoDto.NumeroPedido,
                 DataAtualizacao = DateTime.Now,
                 Valor = pagamentoDto.Valor,
-                StatusPagamento = EStatusPagamentoExtensions.ToDescriptionString(EStatusPagamento.Aprovado),
+                StatusPagamento = EStatusPagamentoExtensions.ToDescriptionString(EStatusPagamento.aguardando),
             };
 
             await _statusRepository.Create(pagamentoStatus);
+        }
+
+        public async Task<ServiceResult<PaymentQrCodeResponse>> GerarQrCodePagamento(int idPedido)
+        {
+            var result = new ServiceResult<PaymentQrCodeResponse>();
+
+            try
+            {
+                var pedido = await _pedidoObterUseCase.ConsultarPedido(idPedido);
+
+                var request = new PaymentQrCodeRequest
+                {
+                    description = $"Pedido {pedido.Data.NumeroCliente}",
+                    external_reference = pedido.Data.NumeroPedido.ToString(),
+                    items = new List<ItemRequest>()
+                    {
+                        new ItemRequest
+                        {
+                            title = $"Pedido {pedido.Data.NumeroCliente}",
+                            unit_price = Convert.ToInt32(pedido.Data.ValorPedido),
+                            quantity = 1,
+                            unit_measure = "unit",
+                            total_amount = Convert.ToInt32(pedido.Data.ValorPedido),
+                        },
+                    },
+                    title = "Product order",
+                    total_amount = Convert.ToInt32(pedido.Data.ValorPedido)
+                };
+
+                var response = _mercadoPagoApi.GeraQrCodePagamento(request);
+
+                var pagamentoDto = new PagamentoDto {
+                    NumeroCliente = pedido.Data.NumeroCliente.ToString(),
+                    NumeroPedido = pedido.Data.NumeroPedido.ToString(),
+                    Valor = Convert.ToInt32(pedido.Data.ValorPedido)
+                };
+
+                await EnviarPedidoPagamento(pagamentoDto);
+
+                result.Data = response.Result;
+            }
+            catch (Exception ex)
+            {
+                result.AddError(400, ex.Message);
+            }
+
+            return result;
         }
     }
 }

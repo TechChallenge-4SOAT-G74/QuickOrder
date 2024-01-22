@@ -38,7 +38,8 @@ namespace QuickOrder.Adapters.Driven.MercadoPago
             {
                 var error = await ex.GetResponseJsonAsync<object>();
                 Console.Write($"Error returned from {ex.Call.Request.Url}: {error}");
-                return null;
+
+                throw new Exception($"Error returned from {ex.Call.Request.Url}: {error}");
             }
         }
     }
