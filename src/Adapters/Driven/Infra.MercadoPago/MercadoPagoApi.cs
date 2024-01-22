@@ -1,6 +1,6 @@
 ﻿namespace QuickOrder.Adapters.Driven.MercadoPago
 {
-    internal class MercadoPagoApi
+    public class MercadoPagoApi
     {
     }
 }
