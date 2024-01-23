@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickOrder.Core.IoC", "Core
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{333C0BE3-2258-44E3-9777-D792484DBC45}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuickOrder.Adapters.Driven.MercadoPago", "Adapters\Driven\Infra.MercadoPago\QuickOrder.Adapters.Driven.MercadoPago.csproj", "{E59AC058-1AAB-4B48-AF39-FE86DE2CE073}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{333C0BE3-2258-44E3-9777-D792484DBC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{333C0BE3-2258-44E3-9777-D792484DBC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{333C0BE3-2258-44E3-9777-D792484DBC45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E59AC058-1AAB-4B48-AF39-FE86DE2CE073}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E59AC058-1AAB-4B48-AF39-FE86DE2CE073}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E59AC058-1AAB-4B48-AF39-FE86DE2CE073}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E59AC058-1AAB-4B48-AF39-FE86DE2CE073}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +101,7 @@ Global
 		{A7CE4E48-A871-4FBB-BF04-BFDAF1A6005E} = {75D8BE0D-044A-485D-A1FA-0AD296535DE6}
 		{55F01792-2B19-410A-B4F2-3E3EAAA32AE6} = {0D2EBA29-C952-457D-AC8E-113042EA06FB}
 		{333C0BE3-2258-44E3-9777-D792484DBC45} = {569245F3-FC34-47D5-BAE0-BE6B8A5916A1}
+		{E59AC058-1AAB-4B48-AF39-FE86DE2CE073} = {37EDC2C4-AD54-497B-839D-A2AAAA0811F2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {047CCB14-0855-45B5-AA42-1FEE0C154A72}

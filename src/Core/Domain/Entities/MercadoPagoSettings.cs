@@ -1,0 +1,9 @@
+﻿namespace QuickOrder.Core.Domain.Entities
+{
+    public class MercadoPagoSettings
+    {
+        public string AccessToken { get; set; }
+        public int User_id { get; set; }
+        public string External_pos_id { get; set; }
+    }
+}
