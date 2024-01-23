@@ -88,7 +88,7 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
 
                 await _pedidoRepository.Update(pedido);
 
-                var pagamento = new PagamentoDto { NumeroCliente = pedido.ClienteId.ToString(), NumeroPedido = pedido.NumeroPedido.ToString(), CarrinhoId = pedido.CarrinhoId, Valor = pedido.ValorPedido };
+                var pagamento = new SacolaDto { NumeroCliente = pedido.ClienteId.ToString(), NumeroPedido = pedido.NumeroPedido.ToString(), CarrinhoId = pedido.CarrinhoId, Valor = pedido.ValorPedido };
                 await _pagamentoUseCase.ConfirmarPagamento(pagamento);
 
             }
@@ -115,7 +115,7 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
 
                 await _pedidoStatusRepository.Create(pedidoStatus);
 
-                var pagamento = new PagamentoDto { NumeroCliente = pedido.ClienteId.ToString(), NumeroPedido = pedido.NumeroPedido.ToString(), CarrinhoId = pedido.CarrinhoId, Valor = pedido.ValorPedido };
+                var pagamento = new SacolaDto { NumeroCliente = pedido.ClienteId.ToString(), NumeroPedido = pedido.NumeroPedido.ToString(), CarrinhoId = pedido.CarrinhoId, Valor = pedido.ValorPedido };
 
                 await _pagamentoUseCase.EnviarPedidoPagamento(pagamento);
 

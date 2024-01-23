@@ -15,7 +15,7 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
             _statusRepository = statusRepository;
         }
 
-        public async Task<bool> ConfirmarPagamento(PagamentoDto pagamentoDto)
+        public async Task<bool> ConfirmarPagamento(SacolaDto pagamentoDto)
         {
             var pedido = await _statusRepository.GetValue("NumeroPedido", pagamentoDto.NumeroPedido);
 
@@ -25,7 +25,7 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
                 {
                     Id = pedido.Id,
                     NumeroPedido = pedido.NumeroPedido,
-                    NumeroCliente = pedido.NumeroCliente,
+                    clienteId = pedido.clienteId,
                     StatusPagamento = EStatusPagamentoExtensions.ToDescriptionString(EStatusPagamento.Aprovado),
                     DataAtualizacao = DateTime.Now
                 };
@@ -35,17 +35,16 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
             return true;
         }
 
-        public async Task EnviarPedidoPagamento(PagamentoDto pagamentoDto)
+        public async Task EnviarPedidoPagamento(SacolaDto sacolaDto)
         {
             var pagamentoStatus = new PagamentoStatus
             {
-                NumeroCliente = pagamentoDto.NumeroCliente,
-                NumeroPedido = pagamentoDto.NumeroPedido,
+                clienteId = (int?)Convert.ToUInt32(sacolaDto.NumeroCliente),
+                NumeroPedido = (int)Convert.ToUInt32(sacolaDto.NumeroPedido),
                 DataAtualizacao = DateTime.Now,
-                Valor = pagamentoDto.Valor,
+                Valor = sacolaDto.Valor,
                 StatusPagamento = EStatusPagamentoExtensions.ToDescriptionString(EStatusPagamento.Aprovado),
             };
-
             await _statusRepository.Create(pagamentoStatus);
         }
     }

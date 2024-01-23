@@ -40,6 +40,17 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Pedido
         }
 
         /// <summary>
+        /// Consulta status de um pedido pelo número
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("statuspagamentopedido/{id}")]
+        public async Task<IActionResult> ConsultarStatusPagamentoPedido(int id)
+        {
+            return Result(await _pedidoObterUseCase.ConsultarStatusPagamentoPedido(id));
+        }
+
+        /// <summary>
         /// Consulta Fila de pedidos não finalizados
         /// </summary>
         /// <returns></returns>

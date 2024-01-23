@@ -11,11 +11,13 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
     {
         private readonly IPedidoRepository _pedidoRepository;
         private readonly IPedidoStatusRepository _pedidoStatusRepository;
+        private readonly IPagamentoStatusRepository _pagamentoStatusRepository;
 
-        public PedidoObterUseCase(IPedidoRepository pedidoRepository, IPedidoStatusRepository pedidoStatusRepository)
+        public PedidoObterUseCase(IPedidoRepository pedidoRepository, IPedidoStatusRepository pedidoStatusRepository, IPagamentoStatusRepository pagamentoStatusRepository)
         {
             _pedidoRepository = pedidoRepository;
             _pedidoStatusRepository = pedidoStatusRepository;
+            _pagamentoStatusRepository = pagamentoStatusRepository;
         }
 
         public async Task<ServiceResult<List<PedidoStatus>>> ConsultarFilaPedidos()
@@ -26,8 +28,9 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
                 var fila = await _pedidoStatusRepository.GetAll();
                 fila = fila.Where(x => !x.StatusPedido.Equals(EStatusPedido.Pago)
                        || !x.StatusPedido.Equals(EStatusPedido.PendentePagamento)
-                       || !x.StatusPedido.Equals(EStatusPedido.Finalizado));
-
+                       || !x.StatusPedido.Equals(EStatusPedido.Finalizado))
+                        .OrderByDescending(x => (int)(EStatusPedido)Enum.Parse(typeof(EStatusPedido), x.StatusPedido)).OrderByDescending(x => x.DataAtualizacao);
+                
                 result.Data = fila.ToList();
             }
             catch (Exception ex)
@@ -60,6 +63,30 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
                 };
 
                 result.Data = pedidoDto;
+            }
+            catch (Exception ex)
+            {
+                result.AddError(ex.Message);
+            }
+            return result;
+        }
+
+        public async Task<ServiceResult<PagamentoDto>> ConsultarStatusPagamentoPedido(int id)
+        {
+            var result = new ServiceResult<PagamentoDto>();
+            try
+            {
+                var pagamento = await _pagamentoStatusRepository.GetValue("NumeroPedido", id.ToString());
+
+
+                var pagamentoDto = new PagamentoDto
+                {
+                    NumeroPedido = pagamento.NumeroPedido,
+                    DataHora = pagamento.DataAtualizacao,
+                    StatusPagamento = pagamento.StatusPagamento,
+                };
+
+                result.Data = pagamentoDto;
             }
             catch (Exception ex)
             {
