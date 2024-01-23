@@ -1,13 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using QuickOrder.Core.Application.UseCases.Pagamento.Interfaces;
 
 namespace QuickOrder.Adapters.Driving.Api.Controllers.Pagamento
 {
-    public class PagamentoController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PagamentoController : CustomController<PagamentoController>
     {
-
-        public IActionResult Index()
+        private readonly IPagamentoUseCase _pagamentoUseCase;
+        public PagamentoController(ILogger<PagamentoController> logger, IPagamentoUseCase pagamentoUseCase) : base(logger)
         {
-            return View();
+            _pagamentoUseCase = pagamentoUseCase;
+        }
+
+        /// <summary>
+        /// Gerar QrCode de pagamento para o Pedido do Cliente
+        /// </summary>
+        /// <param name="idPedido"></param>
+        /// <returns></returns>
+        [HttpGet("gerarqrcodepagamento/{idPedido}")]
+        public async Task<IActionResult> GerarQrCodePagamento(int idPedido)
+        {
+            return Result(await _pagamentoUseCase.GerarQrCodePagamento(idPedido));
         }
     }
 }

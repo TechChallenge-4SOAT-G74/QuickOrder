@@ -116,9 +116,6 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
                 await _pedidoStatusRepository.Create(pedidoStatus);
 
                 var pagamento = new PagamentoDto { NumeroCliente = pedido.ClienteId.ToString(), NumeroPedido = pedido.NumeroPedido.ToString(), CarrinhoId = pedido.CarrinhoId, Valor = pedido.ValorPedido };
-
-                await _pagamentoUseCase.EnviarPedidoPagamento(pagamento);
-
             }
             catch (Exception ex)
             {
