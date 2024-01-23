@@ -10,7 +10,7 @@ namespace QuickOrder.Adapters.Driven.MercadoPago
     public class MercadoPagoApi : IMercadoPagoApi
     {
         private readonly string _accessToken;
-        private readonly int _user_id = 1646738091;
+        private readonly int _user_id;
         private readonly string _external_pos_id;
 
         public MercadoPagoApi(IOptions<MercadoPagoSettings> configuration)
