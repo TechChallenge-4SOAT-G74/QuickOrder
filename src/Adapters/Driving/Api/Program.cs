@@ -42,14 +42,6 @@ builder.Services.AddDependencyInjectionConfiguration();
 
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-builder.Services.AddCors(o => o.AddPolicy("QO", builder =>
-{
-    builder.AllowAnyOrigin()
-           .AllowAnyMethod()
-           .AllowAnyHeader();
-}));
-
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: myAllowSpecificOrigins,
@@ -58,7 +50,7 @@ builder.Services.AddCors(options =>
                           policy.AllowAnyOrigin()
                                 .AllowAnyMethod()
                                 .AllowAnyHeader()
-                                .WithOrigins("http://http://localhost:8090");
+                                .WithOrigins("http://localhost:8090");
                       });
 });
 
@@ -74,8 +66,6 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "QuickOrder.Api", Version = "v1" });
 });
-
-
 
 var app = builder.Build();
 

@@ -5,7 +5,7 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento.Interfaces
 {
     public interface IPagamentoUseCase : IBaseUseCase
     {
-        Task<bool> ConfirmarPagamento(PagamentoDto pagamentoDto);
+        Task<bool> ConfirmarPagamento(SacolaDto sacolaDto);
         Task<ServiceResult<PaymentQrCodeResponse>> GerarQrCodePagamento(int idPedido);
     }
 }

@@ -24,9 +24,9 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
             _mercadoPagoApi = mercadoPagoApi;
         }
 
-        public async Task<bool> ConfirmarPagamento(SacolaDto pagamentoDto)
+        public async Task<bool> ConfirmarPagamento(SacolaDto sacolaDto)
         {
-            var pedido = await _statusRepository.GetValue("NumeroPedido", pagamentoDto.NumeroPedido);
+            var pedido = await _statusRepository.GetValue("NumeroPedido", sacolaDto.NumeroPedido);
 
             if (pedido != null)
             {
@@ -86,13 +86,14 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
 
                 var response = _mercadoPagoApi.GeraQrCodePagamento(request);
 
-                var pagamentoDto = new PagamentoDto {
+                var sacolaDto = new SacolaDto
+                {
                     NumeroCliente = pedido.Data.NumeroCliente.ToString(),
                     NumeroPedido = pedido.Data.NumeroPedido.ToString(),
                     Valor = Convert.ToInt32(pedido.Data.ValorPedido)
                 };
 
-                await EnviarPedidoPagamento(pagamentoDto);
+                await EnviarPedidoPagamento(sacolaDto);
 
                 result.Data = response.Result;
             }
