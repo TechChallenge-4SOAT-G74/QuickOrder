@@ -98,7 +98,9 @@ Passo a passo:
 
 <br />
 
-* Abrir algum browser e informar o seguinte endereço: **http://localhost:8090/swagger/index.html**
+* Abrir algum browser e informar o seguinte endereço http ou https:
+  * HTTP: **http://localhost:8090/swagger/index.html**
+  * HTTPS: **https://localhost:5046/swagger/index.html**
 * O resultado deverá ser conforme abaixo:
 
 <br />
