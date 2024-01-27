@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quick-order
+  name: quick-order-deployment
   labels:
     app: quick-order
 spec:
