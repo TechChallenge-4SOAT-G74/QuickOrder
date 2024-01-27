@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quick-order-deployment
+  name: quick-order
   labels:
     app: quick-order
 spec:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: quickordercontainer
-        image: moisesfigueiredo/quickorder:v1
-        imagePullPolicy: Never
+        image: moisesfigueiredo/quickorder:v3
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

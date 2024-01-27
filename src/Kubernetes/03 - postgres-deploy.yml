@@ -13,21 +13,21 @@ spec:
         app: postgres
     spec:
       containers:
-      - name: quickorderdb-postgresql
-        image: postgres:latest
-        ports:
-        - containerPort: 5432
-        env:
-        - name: DB_HOST
-          value: postgres
-        - name: POSTGRES_PASSWORD
-          value: postgres
-        - name: POSTGRES_DB
-          value: quickorderdb
-        volumeMounts:
-        - name: quickorderdb-postgresql-volume
-          mountPath: /var/lib/postgresql/data
+        - name: quickorderdb-postgresql
+          image: postgres:latest
+          ports:
+            - containerPort: 5432
+          env:
+            - name: DB_HOST
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              value: postgres
+            - name: POSTGRES_DB
+              value: quickorderdb
+          volumeMounts:
+            - name: quickorderdb-postgresql-volume
+              mountPath: /var/lib/postgresql/data
       volumes:
-      - name: quickorderdb-postgresql-volume
-        persistentVolumeClaim:
-          claimName: postgres-pvc
+        - name: quickorderdb-postgresql-volume
+          persistentVolumeClaim:
+            claimName: postgres-pvc
