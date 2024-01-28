@@ -21,17 +21,9 @@ fsouza.thadeu@gmail.com
 
 <br />
 
-## Conteúdos
+## Começando
 
-- [Pré-Requisitos](pré-requisitos)
-- [Instalação pelo Visual Studio 2022](instalação-pelo-visual-studio-2022)
-- [Instalação pelo Visual Studio Code](#instalação-pelo-visual-studio-code)
-- [Instalação pelo Kubernetes](instalação-pelo-kubernetes)
-- [xxxxx](xxxxxxxx)
-- [xxxxx](xxxxxxxx)
-- [xxxxx](xxxxxxxx)
-- [xxxxx](xxxxxxxx)
-- [xxxxx](xxxxxxxx)
+As instruções abaixo ajudarão a baixar e executar o projeto em máquina local.
 
 ### Pré-Requisitos
 
