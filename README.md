@@ -136,7 +136,7 @@ Passo a passo:
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/953c1eeb-8bca-4ee4-bc1d-1299e6068b4f)
 
 * Caso o contexto do **docker-desktop** não esteja selecionado, selecionar o mesmo através do comando `kubectl config set-context docker-desktop`
-* Executar o comando `kubectl get all` para garantir que o cluester esteja limpo e assim prevenir que ocorram conflitos de portas nos passos posteriores. O resultado deverá ser esse:
+* Executar o comando `kubectl get all` para garantir que o cluster esteja limpo e assim prevenir que ocorram conflitos de portas nos passos posteriores. O resultado deverá ser esse:
 
 <br />
 
