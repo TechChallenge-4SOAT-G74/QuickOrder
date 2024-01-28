@@ -23,7 +23,7 @@ fsouza.thadeu@gmail.com
 
 ## Começando
 
-- [Começando](https://github.com/TechChallenge-4SOAT-G36/QuickOrder#come%C3%A7ando)
+- [Começando](https://github.com/TechChallenge-4SOAT-G36/QuickOrder#instala%C3%A7%C3%A3o-pelo-visual-studio-code)
 
 ### Pré-Requisitos
 
