@@ -38,7 +38,7 @@ Antes de executar este projeto, os seguintes itens deverão estar instalados no 
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/cd812ee5-f856-4368-96f2-743650a13866)
 
 
-## Instalação pelo Visual Studio 2022
+### Instalação pelo Visual Studio 2022
 
 Passo a passo:
 
