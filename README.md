@@ -23,7 +23,7 @@ fsouza.thadeu@gmail.com
 
 ## Começando
 
-As instruções abaixo ajudarão a baixar e executar o projeto em máquina local.
+- https://github.com/TechChallenge-4SOAT-G36/QuickOrder#come%C3%A7ando
 
 ### Pré-Requisitos
 
