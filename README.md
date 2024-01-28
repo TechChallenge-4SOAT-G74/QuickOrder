@@ -150,3 +150,35 @@ Passo a passo:
 <br />
 
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/4c7a6310-6c38-48d3-90d9-e9c40f2fb69c)
+
+<br />
+
+* Aplicar os **scripts yml** dos **PersistentVolumeClaim** através do comando `kubectl apply -f .\01-pvc\`:
+
+<br />
+
+![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/9b0f694f-3d8c-4cce-81b1-82b398cfd329)
+
+<br />
+
+* Aplicar os **scripts yml** dos **Deployments** através do comando `kubectl apply -f .\02-deployments\`:
+
+<br />
+
+![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/302526e7-95c5-4ca7-83bb-9d6b1ee1b5a0)
+
+<br />
+
+* Aplicar os **scripts yml** dos **Services** através do comando `kubectl apply -f .\03-services\`:
+
+<br />
+
+![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/f225f071-a3d8-4d3f-a806-6e6dd678115d)
+
+<br />
+
+* Executar comando `kubectl get all` para verificar a criação dos itens dos passos anteriores. O resultado deverá ser similar ao listado abaixo:
+
+<br />
+
+![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/82f403f5-9396-4bde-8752-d981e97810fb)
