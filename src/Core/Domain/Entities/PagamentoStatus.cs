@@ -8,6 +8,7 @@
         public DateTime DataAtualizacao { get; set; }
         public string? StatusPagamento { get; set; }
         public string? ProvedorPagamento { get; set; }
-        public int? ChavePagamento { get; set; }
+        public string? ChavePagamento { get; set; }
+        public string? QrCodePayment { get; set; }
     }
 }

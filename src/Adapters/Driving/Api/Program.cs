@@ -17,6 +17,11 @@ builder.Services.Configure<DatabaseMongoDBSettings>(
     builder.Configuration.GetSection("DatabaseMongoDBSettings")
 );
 
+builder.Services.Configure<MercadoPagoSettings>(
+    builder.Configuration.GetSection("MercadoPagoSettings")
+);
+
+
 var migrationsAssembly = typeof(ApplicationContext).Assembly.GetName().Name;
 var migrationTable = "__IntegradorPlurallMigrationsHistory";
 var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();

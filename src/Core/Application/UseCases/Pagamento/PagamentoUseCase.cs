@@ -16,17 +16,19 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
         private readonly IPagamentoStatusRepository _statusRepository;
         private readonly IPedidoObterUseCase _pedidoObterUseCase;
         private readonly IMercadoPagoApi _mercadoPagoApi;
+        private readonly IPedidoStatusRepository _pedidoStatusRepository;
 
-        public PagamentoUseCase(IPagamentoStatusRepository statusRepository, IPedidoObterUseCase pedidoObterUseCase, IMercadoPagoApi mercadoPagoApi)
+        public PagamentoUseCase(IPagamentoStatusRepository statusRepository, IPedidoObterUseCase pedidoObterUseCase, IMercadoPagoApi mercadoPagoApi, IPedidoStatusRepository pedidoStatusRepository)
         {
             _statusRepository = statusRepository;
             _pedidoObterUseCase = pedidoObterUseCase;
             _mercadoPagoApi = mercadoPagoApi;
+            _pedidoStatusRepository = pedidoStatusRepository;
         }
 
-        public async Task<bool> ConfirmarPagamento(SacolaDto sacolaDto)
+        public async Task<bool> AtualizarStatusPagamento(string numeroPedido, int statusPagamento)
         {
-            var pedido = await _statusRepository.GetValue("NumeroPedido", sacolaDto.NumeroPedido);
+            var pedido = await _statusRepository.GetValue("NumeroPedido", numeroPedido);
 
             if (pedido != null)
             {
@@ -35,16 +37,23 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
                     Id = pedido.Id,
                     NumeroPedido = pedido.NumeroPedido,
                     clienteId = pedido.clienteId,
-                    StatusPagamento = EStatusPagamentoExtensions.ToDescriptionString(EStatusPagamento.Aprovado),
+                    StatusPagamento =  EStatusPagamentoExtensions.ToDescriptionString((EStatusPagamento)statusPagamento),
                     DataAtualizacao = DateTime.Now
                 };
                 _statusRepository.Update(pagamentoStatus);
+
+                if ((EStatusPagamento)statusPagamento == EStatusPagamento.Aprovado)
+                {
+                    var pedidoStatus = new PedidoStatus((int)Convert.ToUInt32(pedido.NumeroPedido), EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.Pago), DateTime.Now);
+                    _pedidoStatusRepository.Update(pedidoStatus);
+                }
+
             }
 
             return true;
         }
 
-        private async Task EnviarPedidoPagamento(SacolaDto sacolaDto)
+        private async Task EnviarPedidoPagamento(SacolaDto sacolaDto, PaymentQrCodeResponse paymentQrCode)
         {
             var pagamentoStatus = new PagamentoStatus
             {
@@ -53,8 +62,14 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
                 DataAtualizacao = DateTime.Now,
                 Valor = sacolaDto.Valor,
                 StatusPagamento = EStatusPagamentoExtensions.ToDescriptionString(EStatusPagamento.aguardando),
+                ProvedorPagamento = "Mercado Pago",
+                ChavePagamento = paymentQrCode.in_store_order_id,
+                QrCodePayment = paymentQrCode.qr_data
             };
             await _statusRepository.Create(pagamentoStatus);
+
+            var pedidoStatus = new PedidoStatus((int)Convert.ToUInt32(sacolaDto.NumeroPedido), EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.PendentePagamento), DateTime.Now);
+            _pedidoStatusRepository.Update(pedidoStatus);
         }
 
         public async Task<ServiceResult<PaymentQrCodeResponse>> GerarQrCodePagamento(int idPedido)
@@ -81,7 +96,7 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
                         },
                     },
                     title = "Product order",
-                    total_amount = Convert.ToInt32(pedido.Data.ValorPedido)
+                    total_amount = Convert.ToInt32(pedido.Data.ValorPedido),
                 };
 
                 var response = _mercadoPagoApi.GeraQrCodePagamento(request);
@@ -93,7 +108,7 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
                     Valor = Convert.ToInt32(pedido.Data.ValorPedido)
                 };
 
-                await EnviarPedidoPagamento(sacolaDto);
+                await EnviarPedidoPagamento(sacolaDto, response.Result);
 
                 result.Data = response.Result;
             }
