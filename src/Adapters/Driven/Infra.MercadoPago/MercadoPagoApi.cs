@@ -12,12 +12,14 @@ namespace QuickOrder.Adapters.Driven.MercadoPago
         private readonly string _accessToken;
         private readonly int _user_id;
         private readonly string _external_pos_id;
+        private readonly string _notification_url;
 
         public MercadoPagoApi(IOptions<MercadoPagoSettings> configuration)
         {
             _accessToken = configuration.Value.AccessToken;
             _user_id = configuration.Value.User_id;
-            _external_pos_id = configuration.Value.External_pos_id;       
+            _external_pos_id = configuration.Value.External_pos_id;
+            _notification_url = configuration.Value.NotificationUrl;
         }
 
         public async Task<PaymentQrCodeResponse> GeraQrCodePagamento(PaymentQrCodeRequest request)
@@ -25,6 +27,8 @@ namespace QuickOrder.Adapters.Driven.MercadoPago
             try
             {
                 string url = $"https://api.mercadopago.com/instore/orders/qr/seller/collectors/{_user_id}/pos/{_external_pos_id}/qrs";
+
+                request.notification_url = _notification_url;
 
                 var result = await url
                        .WithHeader("Content-Type", "application/json")

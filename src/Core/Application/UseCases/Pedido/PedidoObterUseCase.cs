@@ -47,7 +47,7 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             {
                 var pedido = await _pedidoRepository.GetFirst(id);
 
-                var fila = await _pedidoStatusRepository.Get(pedido?.CarrinhoId);
+                var fila = await _pedidoStatusRepository.GetValue("NumeroPedido", id.ToString());
 
                 var pedidoDto = new PedidoDto
                 {

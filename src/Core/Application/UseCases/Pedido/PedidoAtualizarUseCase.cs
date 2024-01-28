@@ -89,7 +89,7 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
                 await _pedidoRepository.Update(pedido);
 
                 var sacolaDto = new SacolaDto { NumeroCliente = pedido.ClienteId.ToString(), NumeroPedido = pedido.NumeroPedido.ToString(), CarrinhoId = pedido.CarrinhoId, Valor = pedido.ValorPedido };
-                await _pagamentoUseCase.ConfirmarPagamento(sacolaDto);
+                await _pagamentoUseCase.AtualizarStatusPagamento(pedido.NumeroPedido.ToString(), (int)EStatusPagamento.Aprovado);
 
             }
             catch (Exception ex)
@@ -106,12 +106,10 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             {
                 var pedido = await _pedidoRepository.GetFirst(id);
 
-                var pedidoStatus = new PedidoStatus
-                {
-                    StatusPedido = EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.PendentePagamento),
-                    DataAtualizacao = DateTime.Now,
-                    NumeroPedido = pedido.NumeroPedido
-                };
+                var pedidoStatus = new PedidoStatus(
+                    pedido.NumeroPedido,
+                    EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.PendentePagamento),
+                    DateTime.Now);
 
                 await _pedidoStatusRepository.Create(pedidoStatus);
 
