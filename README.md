@@ -83,7 +83,7 @@ Passo a passo:
 
 <br />
 
-* Na barra de endereços, digitar /swagger após o endereço para que fique desta forma "https://localhost:53699/swagger/" (**ao executar, a porta pode ser diferente**) e teclar enter. O resultado será conforme abaixo, exibindo o swagger da API:
+* Na barra de endereços, digitar /swagger após o endereço para que fique desta forma "https://localhost:53699/swagger/" (**ao executar, a sua porta pode estar diferente**) e teclar enter. O resultado será conforme abaixo, exibindo o swagger da API:
 
 <br />
 
