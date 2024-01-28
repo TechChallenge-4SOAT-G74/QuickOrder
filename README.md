@@ -32,7 +32,7 @@ Antes de executar este projeto, os seguintes itens deverão estar instalados no 
 * Docker
 * Kubernetes
 * Visual Studio 2022 ou Visual Studio Code
-* Verificar e caso necessário, ajustar o arquivo appSettings.json para que os valores das connectionStrings fique conforme abaixo:
+* Verificar e caso necessário, ajustar o arquivo appSettings.json para que os valores das connectionStrings fiquem conforme abaixo:
 <br />
 
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/cd812ee5-f856-4368-96f2-743650a13866)
