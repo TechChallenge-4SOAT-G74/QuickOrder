@@ -132,6 +132,16 @@ Passo a passo:
 
 ### Instalação pelo Kubernetes
 
+<br />
+
+**ARQUITETURA UTILIZADA**
+
+<br />
+
+![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/a65095b1-08a6-4538-9b0c-4a781ebf979b)
+
+<br />
+
 Passo a passo:
 
 * Abrir alguma interface de linha de comando como, por exemplo, o **PowerShell** e digitar o comando `kubectl config get-contexts`. O resultado deverá ser conforme abaixo, com o contexto do **docker-desktop** selecionado:
