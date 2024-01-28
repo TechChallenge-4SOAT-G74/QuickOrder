@@ -23,7 +23,7 @@ fsouza.thadeu@gmail.com
 
 ## Começando
 
-- https://github.com/TechChallenge-4SOAT-G36/QuickOrder#come%C3%A7ando
+- [Começando](https://github.com/TechChallenge-4SOAT-G36/QuickOrder#come%C3%A7ando)
 
 ### Pré-Requisitos
 
