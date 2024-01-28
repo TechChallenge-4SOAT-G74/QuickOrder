@@ -23,10 +23,10 @@ fsouza.thadeu@gmail.com
 
 ## Conteúdos
 
-- [Pré-Requisitos](pré-requisitos)
-- [Instalação pelo Visual Studio 2022](instalação-pelo-visual-studio-2022)
+- [Pré-Requisitos](#pré-requisitos)
+- [Instalação pelo Visual Studio 2022](#instalação-pelo-visual-studio-2022)
 - [Instalação pelo Visual Studio Code](#instalação-pelo-visual-studio-code)
-- [Instalação pelo Kubernetes](instalação-pelo-kubernetes)
+- [Instalação pelo Kubernetes](#instalação-pelo-kubernetes)
 
 ### Pré-Requisitos
 
