@@ -134,7 +134,7 @@ Passo a passo:
 
 Passo a passo:
 
-* Abrir alguma interface de linha de comando como, por exemplo, o **PowerShell** e digitar o comando `kubectl config get-contexts`. O resultado deverá ser conforme abaixo com o contexto do **docker-desktop** selecionado:
+* Abrir alguma interface de linha de comando como, por exemplo, o **PowerShell** e digitar o comando `kubectl config get-contexts`. O resultado deverá ser conforme abaixo, com o contexto do **docker-desktop** selecionado:
   
 <br />
 
