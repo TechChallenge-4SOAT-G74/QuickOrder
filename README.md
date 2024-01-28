@@ -144,7 +144,7 @@ Passo a passo:
 
 <br />
 
-* Caso haja algum **pod, svc ou deployment** etc listado no passo anterior, limpar o cluster através do comando `kubectl delete all --all`
+* Caso haja algum **pod, svc ou deployment** etc listado no passo anterior, limpar o cluster através do comando `kubectl delete all --all` e `kubectl delete pvc --all`
 * Navegar até a pasta **Kubernetes** do Projeto:
 
 <br />
