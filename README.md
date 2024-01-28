@@ -74,6 +74,18 @@ Passo a passo:
 
 <br />
 
+* Uma janela conforme abaixo abrirá:
+
+<br />
+
+![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/3d2881da-c561-4a48-88fa-34f53bd1e889)
+
+<br />
+
+* Na barra de endereços, digitar /swagger após o endereço para que fique desta forma "https://localhost:53699/swagger/" (**ao executar, a porta pode ser diferente**) e teclar enter. O resultado será conforme abaixo, exibindo o swagger da API:
+
+<br />
+
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/4bac9341-7130-4445-b675-88adfa3ccb53)
 
 <br />
