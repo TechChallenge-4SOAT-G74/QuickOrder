@@ -30,6 +30,7 @@ As instruções abaixo ajudarão a baixar e executar o projeto em máquina local
 Antes de executar este projeto, os seguintes itens deverão estar instalados no computador:
 
 * Docker
+* Kubernetes
 * Visual Studio 2022 ou Visual Studio Code
 * Verificar e caso necessário, ajustar o arquivo appSettings.json para que os valores das connectionStrings fique conforme abaixo:
 <br />
@@ -121,3 +122,31 @@ Passo a passo:
 <br />
 
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/c1150eb1-a25a-4ee2-aeb8-c0c03ede965f)
+
+<br />
+
+### Instalação pelo Kubernetes
+
+Passo a passo:
+
+* Abrir alguma interface de linha de comando como, por exemplo, o **PowerShell** e digitar o comando `kubectl config get-contexts`. O resultado deverá ser conforme abaixo com o contexto do **docker-desktop** selecionado:
+  
+<br />
+
+![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/953c1eeb-8bca-4ee4-bc1d-1299e6068b4f)
+
+* Caso o contexto do **docker-desktop** não esteja selecionado, selecionar o mesmo através do comando `kubectl config set-context docker-desktop`
+* Executar o comando `kubectl get all` para garantir que o cluester esteja limpo e assim prevenir que ocorram conflitos de portas nos passos posteriores. O resultado deverá ser esse:
+
+<br />
+
+![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/2a0b22e7-bb53-4f0f-a902-ad1db0071f68)
+
+<br />
+
+* Caso haja algum **pod, svc ou deployment** etc listado no passo anterior, limpar o cluster através do comando `kubectl delete all --all`
+* Navegar até a pasta **Kubernetes** do Projeto:
+
+<br />
+
+![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/4c7a6310-6c38-48d3-90d9-e9c40f2fb69c)
