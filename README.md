@@ -28,6 +28,7 @@ fsouza.thadeu@gmail.com
 - [Instalação pelo Visual Studio Code](#instalação-pelo-visual-studio-code)
 - [Instalação pelo Kubernetes](#instalação-pelo-kubernetes)
 
+<br />
 
 ### Pré-Requisitos
 
