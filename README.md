@@ -96,14 +96,6 @@ Passo a passo:
 
 * Baixar o projeto através do repositório do **GitHub**
 * Abrir o projeto no **Visual Studio Code**
-* Verificar e caso necessário, ajustar o arquivo appSettings.json para que os valores das connectionStrings fique conforme abaixo:
-  
-<br />
-
-![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/d759855e-1ea6-4222-810c-9eab54ad9690)
-
-<br />
-
 * Abrir alguma interface de linha de comando como, por exemplo, o **PowerShell** e navegar até a pasta **src** do Projeto:
 
 <br />
