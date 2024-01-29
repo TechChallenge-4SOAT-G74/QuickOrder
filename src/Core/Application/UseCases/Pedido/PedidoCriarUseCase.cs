@@ -23,19 +23,17 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             _pedidoStatusRepository = pedidoStatusRepository;
         }
 
-        public async Task<ServiceResult> CriarPedido(int numeroCliente)
+        public async Task<ServiceResult> CriarPedido(int? numeroCliente = null)
         {
             //TODO: Usaundo número do cliente como parametro até cria a autenticação.
 
             var result = new ServiceResult();
             try
             {
-                var cliente = await _clienteRepository.GetFirst(numeroCliente);
-                var numeroPedido = _pedidoRepository.GetAll().Result.Select(x => x.Id).OrderByDescending(x => x).FirstOrDefault() + 1;
 
-                //TODO: Gerando número de pedido randônimo até a fila de pedido ser criada 
+                var numeroPedido = _pedidoRepository.GetAll().Result.Select(x => x.Id).OrderByDescending(x => x).FirstOrDefault() + 1;
                 var carrinho = new Carrinho(numeroPedido, numeroCliente, 0, DateTime.Now, null);
-                var pedido = new PedidoEntity(numeroPedido, DateTime.Now, null, cliente?.Id, carrinho.Id.ToString(), null, 0, false);
+                var pedido = new PedidoEntity(numeroPedido, DateTime.Now, null, numeroCliente, carrinho.Id.ToString(), null, 0, false);
                 var pedidoStatus = new PedidoStatus(numeroPedido, EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.Criado), DateTime.Now);
 
                 await _carrinhoRepository.Create(carrinho);

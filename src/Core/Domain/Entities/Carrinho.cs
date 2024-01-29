@@ -2,7 +2,7 @@
 {
     public class Carrinho : EntityMongoBase
     {
-        public Carrinho(int numeroPedido, int numeroCliente, double valor, DateTime dataAtualizacao, List<ProdutoCarrinho>? produtosCarrinho)
+        public Carrinho(int numeroPedido, int? numeroCliente, double valor, DateTime dataAtualizacao, List<ProdutoCarrinho>? produtosCarrinho)
         {
             NumeroPedido = numeroPedido;
             NumeroCliente = numeroCliente;
@@ -14,7 +14,7 @@
         }
 
         public int NumeroPedido { get; set; }
-        public int NumeroCliente { get; set; }
+        public int? NumeroCliente { get; set; }
         public double Valor { get; set; }
         public DateTime DataAtualizacao { get; set; }
         public List<ProdutoCarrinho>? ProdutosCarrinho { get; set; }

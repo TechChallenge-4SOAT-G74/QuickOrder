@@ -37,7 +37,7 @@
         public virtual string? Observacao { get; set; }
         public virtual bool PedidoPago { get; set; }
 
-        public void CalculaPrecoPedido()
+        public double CalculaPrecoPedido()
         {
             if (this.ProdutosItemsPedido != null)
             {
@@ -57,6 +57,7 @@
                 this.ValorPedido = this.ValorPedido < valorPedido ? valorPedido : this.ValorPedido;
             }
 
+            return this.ValorPedido;
         }
     }
 }

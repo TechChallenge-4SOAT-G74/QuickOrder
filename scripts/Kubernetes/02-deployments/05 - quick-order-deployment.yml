@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: quickordercontainer
-        image: moisesfigueiredo/quickorder:v5
+        image: moisesfigueiredo/quickorder:v6
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80

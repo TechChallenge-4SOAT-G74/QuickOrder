@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using QuickOrder.Adapters.Driven.MercadoPago.Interfaces;
 using QuickOrder.Adapters.Driven.MercadoPago;
+using QuickOrder.Adapters.Driven.MercadoPago.Interfaces;
 using QuickOrder.Adapters.Driven.MongoDB.Core;
 using QuickOrder.Adapters.Driven.MongoDB.Repositories;
 using QuickOrder.Adapters.Driven.PostgresDB.Repositories;

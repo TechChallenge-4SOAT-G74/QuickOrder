@@ -20,5 +20,24 @@ namespace QuickOrder.Adapters.Driven.PostgresDB.Repositories
                .ToListAsync();
             return result;
         }
+
+        public async Task<Cliente> GetClienteByCpfOrEmail(string cpf, string email)
+        {
+            var result = await Queryable()
+              .Include(x => x.Usuario)
+              .Where(x => x.Usuario.Cpf.CodigoCpf.Equals(cpf) || x.Usuario.Email.Endereco.Equals(email))
+              .FirstOrDefaultAsync();
+            return result;
+        }
+
+        public async Task<Cliente> GetClienteById(int id)
+        {
+            var result = await Queryable()
+                .Include(x => x.Usuario)
+                .Where(x => x.Id.Equals(id) && x.Usuario.Status)
+                .FirstOrDefaultAsync();
+            return result;
+        }
+
     }
 }

@@ -21,7 +21,7 @@ namespace QuickOrder.Core.Application.UseCases.Cliente
             ServiceResult result = new();
             try
             {
-                var clienteExiste = await _clienteRepository.GetFirst(x => x.Usuario.Cpf.Equals(clienteDto.Cpf) || x.Usuario.Email.Equals(clienteDto.Email));
+                var clienteExiste = await _clienteRepository.GetClienteByCpfOrEmail(clienteDto.Cpf, clienteDto.Email);
                 if (clienteExiste != null)
                 {
                     result.AddError("Cliente já existe.");

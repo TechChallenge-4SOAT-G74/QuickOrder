@@ -46,5 +46,28 @@ namespace QuickOrder.Adapters.Driven.MercadoPago
                 throw new Exception($"Error returned from {ex.Call.Request.Url}: {error}");
             }
         }
+
+        public async Task<Payment> ObterPagamento(string id)
+        {
+            try
+            {
+                string url = $"https://api.mercadopago.com/v1/payments/{id}";
+
+                var result = await url
+                       .WithHeader("Content-Type", "application/json")
+                       .WithOAuthBearerToken(_accessToken)
+                       .GetAsync()
+                       .ReceiveJson<Payment>();
+
+                return result;
+            }
+            catch (FlurlHttpException ex)
+            {
+                var error = await ex.GetResponseJsonAsync<object>();
+                Console.Write($"Error returned from {ex.Call.Request.Url}: {error}");
+
+                throw new Exception($"Error returned from {ex.Call.Request.Url}: {error}");
+            }
+        }
     }
 }

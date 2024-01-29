@@ -4,6 +4,7 @@ using QuickOrder.Core.Domain.Adapters;
 using QuickOrder.Core.Domain.Entities;
 using QuickOrder.Core.Domain.Enums;
 using QuickOrder.Core.Domain.Repositories;
+using ProdutoItemPedidoEntity = QuickOrder.Core.Domain.Entities.ProdutoItemPedido;
 
 namespace QuickOrder.Core.Application.UseCases.Pedido
 {
@@ -26,11 +27,12 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             try
             {
                 var fila = await _pedidoStatusRepository.GetAll();
-                fila = fila.Where(x => !x.StatusPedido.Equals(EStatusPedido.Pago)
-                       || !x.StatusPedido.Equals(EStatusPedido.PendentePagamento)
-                       || !x.StatusPedido.Equals(EStatusPedido.Finalizado))
-                        .OrderByDescending(x => (int)(EStatusPedido)Enum.Parse(typeof(EStatusPedido), x.StatusPedido)).OrderByDescending(x => x.DataAtualizacao);
-                
+                fila = fila.Where(x => !x.StatusPedido.Equals(EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.Pago))
+                       && !x.StatusPedido.Equals(EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.PendentePagamento))
+                       && !x.StatusPedido.Equals(EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.Finalizado))
+                       && !x.StatusPedido.Equals(EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.Criado)))
+                        .OrderByDescending(x => (int)(EStatusPedido)Enum.Parse(typeof(EStatusPedido), x.StatusPedido)).OrderBy(x => x.DataAtualizacao);
+
                 result.Data = fila.ToList();
             }
             catch (Exception ex)
@@ -47,7 +49,15 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             {
                 var pedido = await _pedidoRepository.GetFirst(id);
 
+
                 var fila = await _pedidoStatusRepository.GetValue("NumeroPedido", id.ToString());
+
+
+                if (pedido == null || fila == null)
+                {
+                    result.AddError("Pedido não localizado");
+                    return result;
+                }
 
                 var pedidoDto = new PedidoDto
                 {
@@ -58,8 +68,9 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
                     Observacao = pedido.Observacao,
                     PedidoPago = pedido.PedidoPago,
                     ValorPedido = pedido.ValorPedido,
-                    ProdutosItemsPedido = pedido?.ProdutosItemsPedido ?? null,
-                    StatusPedido = fila.StatusPedido
+                    ProdutoPedido = SetListaProdutos(pedido?.ProdutosItemsPedido),
+                    StatusPedido = fila.StatusPedido,
+                    CarrinhoId = pedido.CarrinhoId,
                 };
 
                 result.Data = pedidoDto;
@@ -71,6 +82,77 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             return result;
         }
 
+        public async Task<ServiceResult<List<PedidoDto>>> ConsultarListaPedidos()
+        {
+            var result = new ServiceResult<List<PedidoDto>>();
+            try
+            {
+                var pedido = _pedidoRepository.ObterListaPedidos().Result;
+
+                var fila = await _pedidoStatusRepository.GetAll();
+
+                fila = fila.Where(x => !x.StatusPedido.Equals(EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.Pago))
+                       && !x.StatusPedido.Equals(EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.PendentePagamento))
+                       && !x.StatusPedido.Equals(EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.Finalizado))
+                       && !x.StatusPedido.Equals(EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.Criado)))
+                        .OrderByDescending(x => (int)(EStatusPedido)Enum.Parse(typeof(EStatusPedido), x.StatusPedido)).OrderBy(x => x.DataAtualizacao);
+
+                var listaPedidos = new List<PedidoDto>();
+
+                if (pedido == null || fila == null)
+                {
+                    result.AddError("Pedidos não localizado");
+                    return result;
+                }
+
+                foreach (var item in fila)
+                {
+                    var pedidoFila = pedido?.Where(x => x.NumeroPedido.Equals(item.NumeroPedido)).FirstOrDefault();
+
+                    var pedidoDto = new PedidoDto
+                    {
+                        NumeroCliente = (int)pedidoFila?.ClienteId,
+                        NumeroPedido = pedidoFila.NumeroPedido,
+                        DataHoraInicio = pedidoFila.DataHoraInicio,
+                        DataHoraFinalizado = pedidoFila.DataHoraFinalizado,
+                        Observacao = pedidoFila.Observacao,
+                        PedidoPago = pedidoFila.PedidoPago,
+                        ValorPedido = pedidoFila.ValorPedido,
+                        ProdutoPedido = SetListaProdutos(pedidoFila?.ProdutosItemsPedido),
+                        StatusPedido = item.StatusPedido,
+                        CarrinhoId = pedidoFila.CarrinhoId,
+                    };
+
+                    listaPedidos.Add(pedidoDto);
+
+                }
+                result.Data = listaPedidos;
+            }
+            catch (Exception ex)
+            {
+                result.AddError(ex.Message);
+            }
+            return result;
+        }
+
+        private List<ProdutoPedidoDto> SetListaProdutos(List<ProdutoItemPedidoEntity> produtosItemsPedido)
+        {
+            var listProdutoPedidoDto = new List<ProdutoPedidoDto>();
+            if (produtosItemsPedido != null)
+            {
+                foreach (var item in produtosItemsPedido)
+                {
+                    var produtoPedidoDto = new ProdutoPedidoDto
+                    {
+                        NomeProduto = item.ProdutoItem.Produto.Nome.Nome,
+                        Quantidade = item.ProdutoItem.Quantidade,
+                        Valor = item.ProdutoItem.Quantidade * Convert.ToInt32(item.ProdutoItem.Produto.Preco)
+                    };
+                    listProdutoPedidoDto.Add(produtoPedidoDto);
+                }
+            }
+            return listProdutoPedidoDto;
+        }
         public async Task<ServiceResult<PagamentoDto>> ConsultarStatusPagamentoPedido(int id)
         {
             var result = new ServiceResult<PagamentoDto>();
@@ -78,7 +160,11 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             {
                 var pagamento = await _pagamentoStatusRepository.GetValue("NumeroPedido", id.ToString());
 
-
+                if (pagamento == null)
+                {
+                    result.AddError("Nenhum pagamento localizado");
+                    return result;
+                }
                 var pagamentoDto = new PagamentoDto
                 {
                     NumeroPedido = pagamento.NumeroPedido,

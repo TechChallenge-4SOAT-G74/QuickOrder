@@ -26,6 +26,46 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
             _pedidoStatusRepository = pedidoStatusRepository;
         }
 
+        public async Task VerificaPagamento(WebHookData whData)
+        {
+            var retorno = await _mercadoPagoApi.ObterPagamento(whData.Data.Id);
+
+            var status = 0;
+            switch (retorno.Status)
+            {
+                case "approved":
+                    status = (int)EStatusPagamento.Aprovado;
+                    break;
+                case "pending":
+                    status = (int)EStatusPagamento.aguardando;
+                    break;
+                case "authorized":
+                    status = (int)EStatusPagamento.processando;
+                    break;
+                case "in_process":
+                    status = (int)EStatusPagamento.processando;
+                    break;
+                case "in_mediation":
+                    status = (int)EStatusPagamento.processando;
+                    break;
+                case "rejected":
+                    status = (int)EStatusPagamento.Negado;
+                    break;
+                case "cancelled":
+                    status = (int)EStatusPagamento.Negado;
+                    break;
+                case "refunded":
+                    status = (int)EStatusPagamento.Negado;
+                    break;
+                case "charged_back":
+                    status = (int)EStatusPagamento.Negado;
+                    break;
+            }
+
+            await AtualizarStatusPagamento(whData.Data.Id, status);
+        }
+
+
         public async Task<bool> AtualizarStatusPagamento(string numeroPedido, int statusPagamento)
         {
             var pedido = await _statusRepository.GetValue("NumeroPedido", numeroPedido);
@@ -37,14 +77,14 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
                     Id = pedido.Id,
                     NumeroPedido = pedido.NumeroPedido,
                     clienteId = pedido.clienteId,
-                    StatusPagamento =  EStatusPagamentoExtensions.ToDescriptionString((EStatusPagamento)statusPagamento),
+                    StatusPagamento = EStatusPagamentoExtensions.ToDescriptionString((EStatusPagamento)statusPagamento),
                     DataAtualizacao = DateTime.Now
                 };
                 _statusRepository.Update(pagamentoStatus);
 
                 if ((EStatusPagamento)statusPagamento == EStatusPagamento.Aprovado)
                 {
-                    var pedidoStatus = new PedidoStatus((int)Convert.ToUInt32(pedido.NumeroPedido), EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.Pago), DateTime.Now);
+                    var pedidoStatus = new PedidoStatus((int)Convert.ToUInt32(pedido.NumeroPedido), EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.Recebido), DateTime.Now);
                     _pedidoStatusRepository.Update(pedidoStatus);
                 }
 
@@ -80,6 +120,12 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
             {
                 var pedido = await _pedidoObterUseCase.ConsultarPedido(idPedido);
 
+                if (pedido == null)
+                {
+                    result.AddError("Pedido não localizado.");
+                    return result;
+                }
+
                 var request = new PaymentQrCodeRequest
                 {
                     description = $"Pedido {pedido.Data.NumeroCliente}",
@@ -98,6 +144,12 @@ namespace QuickOrder.Core.Application.UseCases.Pagamento
                     title = "Product order",
                     total_amount = Convert.ToInt32(pedido.Data.ValorPedido),
                 };
+
+                if (Convert.ToInt32(pedido.Data.ValorPedido) == 0)
+                {
+                    result.AddError("Pedido não possui valor para pagamento.");
+                    return result;
+                }
 
                 var response = _mercadoPagoApi.GeraQrCodePagamento(request);
 

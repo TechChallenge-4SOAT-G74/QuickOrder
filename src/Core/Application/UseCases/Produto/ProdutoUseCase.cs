@@ -11,15 +11,13 @@ namespace QuickOrder.Core.Application.UseCases.Produto
             var produtoitens = new List<ProdutoItem>();
             foreach (var item in dto)
             {
-                produtoitens.Add(new ProdutoItem
-                {
-                    ProdutoId = produtoId,
-                    ItemId = item.Item.Id,
-                    Quantidade = item.Quantidade,
-                    QuantidadeMin = item.QuantidadeMin,
-                    QuantidadeMax = item.QuantidadeMax,
-                    PermitidoAlterar = item.PermitidoAlterar
-                });
+                produtoitens.Add(new ProdutoItem(
+                    produtoId,
+                    item.Item.Id,
+                    item.Quantidade,
+                    item.QuantidadeMin,
+                    item.QuantidadeMax,
+                    item.PermitidoAlterar));
             }
 
             return produtoitens;

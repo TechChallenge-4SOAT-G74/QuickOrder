@@ -1,6 +1,7 @@
 ﻿using QuickOrder.Core.Application.Dtos;
 using QuickOrder.Core.Application.UseCases.Cliente.Interfaces;
 using QuickOrder.Core.Domain.Repositories;
+using System.Runtime.InteropServices;
 
 namespace QuickOrder.Core.Application.UseCases.Cliente
 {
@@ -32,6 +33,7 @@ namespace QuickOrder.Core.Application.UseCases.Cliente
                         DDD = cliente.Telefone.DDD,
                         Telefone = cliente.Telefone.Numero,
                         DataNascimento = cliente.DataNascimento,
+                        Status = cliente.Usuario.Status
                     });
                 }
 
@@ -46,7 +48,7 @@ namespace QuickOrder.Core.Application.UseCases.Cliente
             ServiceResult<ClienteDto> result = new();
             try
             {
-                var cliente = await _clienteRepository.GetFirst(x => x.Usuario.Status && x.Id.Equals(id));
+                var cliente = await _clienteRepository.GetClienteById(id);
                 result.Data = new ClienteDto
                 {
                     Nome = cliente.Usuario.Nome.Nome,
@@ -55,7 +57,7 @@ namespace QuickOrder.Core.Application.UseCases.Cliente
                     DDD = cliente.Telefone.DDD,
                     Telefone = cliente.Telefone.Numero,
                     DataNascimento = cliente.DataNascimento,
-
+                    Status = cliente.Usuario.Status
                 };
             }
             catch (Exception ex) { result.AddError(ex.Message); }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuickOrder.Adapters.Driven.MercadoPago.Requests;
 using QuickOrder.Core.Application.UseCases.Pagamento.Interfaces;
-using QuickOrder.Core.Domain.Enums;
 
 namespace QuickOrder.Adapters.Driving.Api.WebHooks.Receivers
 {
@@ -25,9 +24,10 @@ namespace QuickOrder.Adapters.Driving.Api.WebHooks.Receivers
             Console.Write(data);
 
             if (data.Type == "payment")
-                await _pagamentoUseCase.AtualizarStatusPagamento(data.Data.Id, (int)EStatusPagamento.Aprovado);
 
-            return Ok(data);
+                await _pagamentoUseCase.VerificaPagamento(data);
+
+            return Ok(true);
         }
     }
 }
