@@ -1,6 +1,6 @@
 # Quick Order - Tech Challenge FIAP
 
-Projeto do Tech Challenge da FIAP - Fase 1
+Projeto do Tech Challenge da FIAP - Fase 2
 
 **INTEGRANTES DO GRUPO 36**
 
