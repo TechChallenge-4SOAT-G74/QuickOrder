@@ -211,7 +211,7 @@ Passo a passo:
 
 <br />
 
-### Passo a passo em vídeo
+### Passo a passo em vídeo Kubernetes
 
 <br />
 
