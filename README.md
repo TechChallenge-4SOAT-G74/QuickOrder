@@ -27,6 +27,7 @@ fsouza.thadeu@gmail.com
 - [Instalação pelo Visual Studio 2022](#instalação-pelo-visual-studio-2022)
 - [Instalação pelo Visual Studio Code](#instalação-pelo-visual-studio-code)
 - [Instalação pelo Kubernetes](#instalação-pelo-kubernetes)
+  - [Passo a passo em vídeo](#passo-a-passo-em-vídeo-kubernetes)
 
 <br />
 
