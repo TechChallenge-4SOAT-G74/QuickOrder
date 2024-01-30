@@ -2,9 +2,8 @@
 {
     public class PagamentoDto
     {
-        public string NumeroPedido { get; set; }
-        public string? NumeroCliente { get; set; }
-        public string CarrinhoId { get; set; }
-        public double Valor { get; set; }
+        public int NumeroPedido { get; set; }
+        public DateTime DataHora { get; set; }
+        public string? StatusPagamento { get; set; }
     }
 }

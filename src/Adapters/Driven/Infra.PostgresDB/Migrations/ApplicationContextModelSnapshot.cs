@@ -166,7 +166,7 @@ namespace QuickOrder.Adapters.Driven.PostgresDB.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ItemId")
+                    b.Property<int?>("ItemId")
                         .HasColumnType("integer")
                         .HasColumnName("Item");
 
@@ -203,11 +203,13 @@ namespace QuickOrder.Adapters.Driven.PostgresDB.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("PedidoId")
+                    b.Property<int?>("PedidoId")
+                        .IsRequired()
                         .HasColumnType("integer")
                         .HasColumnName("Pedido");
 
-                    b.Property<int>("ProdutoItemId")
+                    b.Property<int?>("ProdutoItemId")
+                        .IsRequired()
                         .HasColumnType("integer")
                         .HasColumnName("PordutoItem");
 
@@ -334,8 +336,7 @@ namespace QuickOrder.Adapters.Driven.PostgresDB.Migrations
                     b.HasOne("QuickOrder.Core.Domain.Entities.Item", "Item")
                         .WithMany("ProdutoItens")
                         .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("QuickOrder.Core.Domain.Entities.Produto", "Produto")
                         .WithMany("ProdutoItens")

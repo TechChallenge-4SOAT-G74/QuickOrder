@@ -17,6 +17,11 @@ builder.Services.Configure<DatabaseMongoDBSettings>(
     builder.Configuration.GetSection("DatabaseMongoDBSettings")
 );
 
+builder.Services.Configure<MercadoPagoSettings>(
+    builder.Configuration.GetSection("MercadoPagoSettings")
+);
+
+
 var migrationsAssembly = typeof(ApplicationContext).Assembly.GetName().Name;
 var migrationTable = "__IntegradorPlurallMigrationsHistory";
 var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
@@ -42,14 +47,6 @@ builder.Services.AddDependencyInjectionConfiguration();
 
 var myAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-builder.Services.AddCors(o => o.AddPolicy("QO", builder =>
-{
-    builder.AllowAnyOrigin()
-           .AllowAnyMethod()
-           .AllowAnyHeader();
-}));
-
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: myAllowSpecificOrigins,
@@ -58,7 +55,7 @@ builder.Services.AddCors(options =>
                           policy.AllowAnyOrigin()
                                 .AllowAnyMethod()
                                 .AllowAnyHeader()
-                                .WithOrigins("http://http://localhost:8090");
+                                .WithOrigins("http://localhost:8090");
                       });
 });
 
@@ -75,8 +72,6 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "QuickOrder.Api", Version = "v1" });
 });
 
-
-
 var app = builder.Build();
 
 
@@ -87,11 +82,11 @@ using (var scope = app.Services.CreateScope())
 }
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (!app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+//}
 
 app.UseReDoc(c =>
 {

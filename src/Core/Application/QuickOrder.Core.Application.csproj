@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Adapters\Driven\Infra.MercadoPago\QuickOrder.Adapters.Driven.MercadoPago.csproj" />
     <ProjectReference Include="..\Domain\QuickOrder.Core.Domain.csproj" />
   </ItemGroup>
 

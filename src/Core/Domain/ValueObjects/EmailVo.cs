@@ -16,7 +16,7 @@ namespace QuickOrder.Core.Domain.ValueObjects
 
         private void Validar()
         {
-            string pattern = @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z";
+            string pattern = @"/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i";
             if (Regex.IsMatch(Endereco, pattern, RegexOptions.IgnoreCase))
                 throw new Exception("E-mail Inválido! Não é possível criar Usuário");
         }

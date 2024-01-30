@@ -14,6 +14,7 @@ COPY ["Core/Domain/QuickOrder.Core.Domain.csproj", "Core/Domain/"]
 COPY ["Adapters/Driven/Infra.PostgresDB/QuickOrder.Adapters.Driven.PostgresDB.csproj", "Adapters/Driven/Infra.PostgresDB/"]
 COPY ["Adapters/Driven/Infra.ServiceBus/QuickOrder.Adapters.Driven.ServiceBus.csproj", "Adapters/Driven/Infra.ServiceBus/"]
 COPY ["Core/Application/QuickOrder.Core.Application.csproj", "Core/Application/"]
+COPY ["Adapters/Driven/Infra.MercadoPago/QuickOrder.Adapters.Driven.MercadoPago.csproj", "Adapters/Driven/Infra.MercadoPago/"]
 RUN dotnet restore "Adapters/Driving/Api/QuickOrder.Adapters.Driving.Api.csproj"
 COPY . .
 WORKDIR "/src/Adapters/Driving/Api"

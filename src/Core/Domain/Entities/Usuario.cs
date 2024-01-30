@@ -23,10 +23,10 @@ namespace QuickOrder.Core.Domain.Entities
             Status = status;
         }
 
-        public virtual NomeVo Nome { get; private set; }
-        public virtual CpfVo Cpf { get; private set; }
-        public virtual EmailVo Email { get; private set; }
-        public virtual bool Status { get; private set; }
+        public virtual NomeVo Nome { get;  set; }
+        public virtual CpfVo Cpf { get;  set; }
+        public virtual EmailVo Email { get;  set; }
+        public virtual bool Status { get;  set; }
         public virtual int Role { get; set; }
         public virtual List<Cliente> Clientes { get; set; }
         public virtual List<Funcionario> Funcionarios { get; set; }

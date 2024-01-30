@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuickOrder.Core.Application.Dtos;
 using QuickOrder.Core.Application.UseCases.Pedido.Interfaces;
+using QuickOrder.Core.Domain.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -40,6 +41,28 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Pedido
         }
 
         /// <summary>
+        /// Consulta Lista de pedidos em andamento
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("consultarlistapedidos")]
+        public async Task<IActionResult> ConsultarListaPedidos()
+        {
+            return Result(await _pedidoObterUseCase.ConsultarListaPedidos());
+        }
+
+        /// <summary>
+        /// Consulta status de um pedido pelo número
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("statuspagamentopedido/{id}")]
+        public async Task<IActionResult> ConsultarStatusPagamentoPedido(int id)
+        {
+            return Result(await _pedidoObterUseCase.ConsultarStatusPagamentoPedido(id));
+        }
+
+        /// <summary>
         /// Consulta Fila de pedidos não finalizados
         /// </summary>
         /// <returns></returns>
@@ -55,7 +78,7 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Pedido
         /// <param name="numeroPedido"></param>
         /// <returns></returns>
         [HttpPost("criarpedido")]
-        public async Task<IActionResult> CriarPedido(int numeroCliente)
+        public async Task<IActionResult> CriarPedido(int? numeroCliente = null)
         {
             return Result(await _pedidoCriarUseCase.CriarPedido(numeroCliente));
         }
@@ -64,12 +87,12 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Pedido
         /// Adicionar item ao Pedido
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="pedidoDto"></param>
+        /// <param name="produtoCarrinho"></param>
         /// <returns></returns>
         [HttpPut("adicionaritemaopedido/{id}")]
-        public async Task<IActionResult> AlterarItemAoPedido(string id, [FromBody] PedidoDto pedidoDto)
+        public async Task<IActionResult> AlterarItemAoPedido(string id, [FromBody] List<ProdutoCarrinho> produtoCarrinho)
         {
-            return Result(await _pedidoAtualizarUseCase.AlterarItemAoPedido(id, pedidoDto));
+            return Result(await _pedidoAtualizarUseCase.AlterarItemAoPedido(id, produtoCarrinho));
         }
 
         /// <summary>
@@ -101,9 +124,9 @@ namespace QuickOrder.Adapters.Driving.Api.Controllers.Pedido
         /// <param name="status"></param>
         /// <returns></returns>
         [HttpPut("alterarstatuspedido/{id}")]
-        public async Task<IActionResult> AlterarStatusPedido(string id, [FromBody] PedidoStatusDto pedidoStatusDto)
+        public async Task<IActionResult> AlterarStatusPedido(int id, string pedidoStatus)
         {
-            return Result(await _pedidoAtualizarUseCase.AlterarStatusPedido(id, pedidoStatusDto));
+            return Result(await _pedidoAtualizarUseCase.AlterarStatusPedido(id, pedidoStatus));
         }
 
         /// <summary>

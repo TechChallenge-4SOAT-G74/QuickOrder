@@ -15,8 +15,7 @@ namespace QuickOrder.Adapters.Driven.PostgresDB.Mapping
             builder.HasOne(x => x.Produto)
                 .WithMany(x => x.ProdutoItens);
             builder.Property(x => x.ItemId)
-                   .HasColumnName("Item")
-                   .IsRequired();
+                   .HasColumnName("Item");
             builder.HasOne(x => x.Item)
                 .WithMany(x => x.ProdutoItens);
             builder.Property(x => x.Quantidade)

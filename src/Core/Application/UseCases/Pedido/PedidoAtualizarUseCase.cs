@@ -1,10 +1,12 @@
-﻿using QuickOrder.Core.Application.Dtos;
+﻿using QuickOrder.Adapters.Driven.MercadoPago.Responses;
+using QuickOrder.Core.Application.Dtos;
 using QuickOrder.Core.Application.UseCases.Pagamento.Interfaces;
 using QuickOrder.Core.Application.UseCases.Pedido.Interfaces;
 using QuickOrder.Core.Domain.Adapters;
 using QuickOrder.Core.Domain.Entities;
 using QuickOrder.Core.Domain.Enums;
 using QuickOrder.Core.Domain.Repositories;
+using ProdutosItemsPedidoEntity = QuickOrder.Core.Domain.Entities.ProdutoItemPedido;
 
 namespace QuickOrder.Core.Application.UseCases.Pedido
 {
@@ -23,32 +25,21 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             _pagamentoUseCase = pagamentoUseCase;
         }
 
-        public async Task<ServiceResult> AlterarItemAoPedido(string id, PedidoDto pedidoDto)
+        public async Task<ServiceResult> AlterarItemAoPedido(string id, List<ProdutoCarrinho> produtoCarrinho)
         {
             var result = new ServiceResult();
             try
             {
-                var produtoCarrinho = new List<ProdutoCarrinho>();
-                if (pedidoDto.ProdutosItemsPedido != null)
-                {
-                    foreach (var item in pedidoDto.ProdutosItemsPedido)
-                    {
-                        produtoCarrinho.Add(new ProdutoCarrinho
-                        (
-                            ECategoriaExtensions.ToDescriptionString((ECategoria)item.ProdutoItem.Produto.CategoriaId),
-                            item.ProdutoItem.Produto.Nome.Nome,
-                            item.ProdutoItem.ProdutoId,
-                            item.ProdutoItem.Produto.Preco,
-                            null
-                        ));
-                    }
+                var carrinho = await _carrinhoRepository.GetValue("NumeroPedido", id);
 
+                if (carrinho == null)
+                {
+                    result.AddError("Pedido não localizado.");
+                    return result;
                 }
 
-                var carrinho = await _carrinhoRepository.Get(id);
-
                 carrinho.DataAtualizacao = DateTime.Now;
-                carrinho.Valor = pedidoDto.ValorPedido;
+                carrinho.Valor = produtoCarrinho.Sum(x => x.ValorProduto);
                 carrinho.ProdutosCarrinho = produtoCarrinho;
 
                 _carrinhoRepository.Update(carrinho);
@@ -60,13 +51,20 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             return result;
         }
 
-        public async Task<ServiceResult> AlterarStatusPedido(string id, PedidoStatusDto pedidoStatusDto)
+        public async Task<ServiceResult> AlterarStatusPedido(int id, string pedidoStatus)
         {
             var result = new ServiceResult();
             try
             {
-                var pedido = await _pedidoStatusRepository.Get(id);
-                pedido.StatusPedido = pedidoStatusDto.StatusPedido;
+                var pedido = await _pedidoStatusRepository.GetValue("NumeroPedido", id.ToString());
+
+                if (pedido == null)
+                {
+                    result.AddError("Pedido não localizado.");
+                    return result;
+                }
+
+                pedido.StatusPedido = pedidoStatus;
                 pedido.DataAtualizacao = DateTime.Now;
                 _pedidoStatusRepository.Update(pedido);
 
@@ -84,12 +82,19 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             try
             {
                 var pedido = await _pedidoRepository.GetFirst(id);
+
+                if (pedido == null)
+                {
+                    result.AddError("Pedido não localizado.");
+                    return result;
+                }
+
                 pedido.PedidoPago = true;
 
                 await _pedidoRepository.Update(pedido);
 
-                var pagamento = new PagamentoDto { NumeroCliente = pedido.ClienteId.ToString(), NumeroPedido = pedido.NumeroPedido.ToString(), CarrinhoId = pedido.CarrinhoId, Valor = pedido.ValorPedido };
-                await _pagamentoUseCase.ConfirmarPagamento(pagamento);
+                var sacolaDto = new SacolaDto { NumeroCliente = pedido.ClienteId.ToString(), NumeroPedido = pedido.NumeroPedido.ToString(), CarrinhoId = pedido.CarrinhoId, Valor = pedido.ValorPedido };
+                await _pagamentoUseCase.AtualizarStatusPagamento(pedido.NumeroPedido.ToString(), (int)EStatusPagamento.Aprovado);
 
             }
             catch (Exception ex)
@@ -99,26 +104,48 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             return result;
         }
 
-        public async Task<ServiceResult> ConfirmarPedido(int id)
+        public async Task<ServiceResult<PaymentQrCodeResponse>> ConfirmarPedido(int id)
         {
-            var result = new ServiceResult();
+            var result = new ServiceResult<PaymentQrCodeResponse>();
             try
             {
                 var pedido = await _pedidoRepository.GetFirst(id);
+                var carrinho = await _carrinhoRepository.GetValue("NumeroPedido", id.ToString());
 
-                var pedidoStatus = new PedidoStatus
+                if (pedido == null || carrinho == null)
                 {
-                    StatusPedido = EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.PendentePagamento),
-                    DataAtualizacao = DateTime.Now,
-                    NumeroPedido = pedido.NumeroPedido
-                };
+                    result.AddError("Pedido não localizado.");
+                    return result;
+                }
 
-                await _pedidoStatusRepository.Create(pedidoStatus);
+                var produtosItems = new List<ProdutosItemsPedidoEntity>();
 
-                var pagamento = new PagamentoDto { NumeroCliente = pedido.ClienteId.ToString(), NumeroPedido = pedido.NumeroPedido.ToString(), CarrinhoId = pedido.CarrinhoId, Valor = pedido.ValorPedido };
+                foreach (var item in carrinho.ProdutosCarrinho)
+                    produtosItems.Add(new ProdutosItemsPedidoEntity(new ProdutoItem(item.IdProduto, 1), id));
 
-                await _pagamentoUseCase.EnviarPedidoPagamento(pagamento);
+                pedido.ProdutosItemsPedido = produtosItems;
+                pedido.ValorPedido = carrinho.ProdutosCarrinho.Sum(x => x.ValorProduto);
 
+                await _pedidoRepository.Update(pedido);
+
+                var pedidoStatusExiste = await _pedidoStatusRepository.GetValue("NumeroPedido", id.ToString());
+
+                if (pedidoStatusExiste == null)
+                {
+                    var pedidoStatus = new PedidoStatus(
+                        pedido.NumeroPedido,
+                        EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.PendentePagamento),
+                        DateTime.Now);
+
+                    await _pedidoStatusRepository.Create(pedidoStatus);
+                }
+                else
+                {
+                    pedidoStatusExiste.StatusPedido = EStatusPedidoExtensions.ToDescriptionString(EStatusPedido.PendentePagamento);
+                    _pedidoStatusRepository.Update(pedidoStatusExiste);
+                }
+
+                result = await _pagamentoUseCase.GerarQrCodePagamento(pedido.NumeroPedido);
             }
             catch (Exception ex)
             {
@@ -126,5 +153,6 @@ namespace QuickOrder.Core.Application.UseCases.Pedido
             }
             return result;
         }
+
     }
 }

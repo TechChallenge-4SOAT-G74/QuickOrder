@@ -13,8 +13,8 @@ namespace QuickOrder.Core.Domain.Enums
         [Description("Pagamento Aprovado")]
         Pago = 3,
 
-        [Description("Aguardando preparo")]
-        AguardandoPreparo = 4,
+        [Description("Recebido")]
+        Recebido = 4,
 
         [Description("Em preparação")]
         EmPreparacao = 5,

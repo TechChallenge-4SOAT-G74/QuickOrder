@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using QuickOrder.Adapters.Driven.MercadoPago;
+using QuickOrder.Adapters.Driven.MercadoPago.Interfaces;
 using QuickOrder.Adapters.Driven.MongoDB.Core;
 using QuickOrder.Adapters.Driven.MongoDB.Repositories;
 using QuickOrder.Adapters.Driven.PostgresDB.Repositories;
@@ -67,11 +69,9 @@ namespace QuickOrder.Core.IoC
             services.AddScoped<IPedidoCriarUseCase, PedidoCriarUseCase>();
             services.AddScoped<IPedidoObterUseCase, PedidoObterUseCase>();
 
-
-
             services.AddScoped<IPagamentoUseCase, PagamentoUseCase>();
 
-
+            services.AddScoped<IMercadoPagoApi, MercadoPagoApi>();
         }
     }
 }
