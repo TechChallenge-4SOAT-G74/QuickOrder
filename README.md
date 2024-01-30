@@ -208,3 +208,18 @@ Passo a passo:
 <br />
 
 ![image](https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/8eda4804-7b3a-48a9-beee-1d562693b280)
+
+<br />
+
+**Passo a passo em vídeo Kubernetes**
+
+<br />
+
+<div align="center">
+      <a href="https://www.youtube.com/watch?v=GJAberOaVkc">
+     <img src="https://github.com/TechChallenge-4SOAT-G36/QuickOrder/assets/19378661/028deb6c-4929-4fbb-9fa9-294108219dd3" 
+      alt="Everything Is AWESOME" 
+      style="width:560px;height:315px;">
+      </a>
+</div>
+
