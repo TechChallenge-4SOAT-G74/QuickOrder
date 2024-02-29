@@ -4,14 +4,8 @@ Projeto do Tech Challenge da FIAP - Fase 2
 
 **INTEGRANTES DO GRUPO 36**
 
-* Matheus Augusto Silva dos Santos
-matheus.santos8192@outlook.com
-
 * Moisés Barboza de Figueiredo Junior
 moises.figueiredo@gmail.com
-
-* Keilla Cristina Martins Conforto
-kcrismartins@gmail.com
 
 * Gabriela da Silva Lopes
 gabrieladslopes@gmail.com
