@@ -24,7 +24,20 @@ builder.Services.Configure<MercadoPagoSettings>(
 
 var migrationsAssembly = typeof(ApplicationContext).Assembly.GetName().Name;
 var migrationTable = "__IntegradorPlurallMigrationsHistory";
-var databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
+
+//===================================================================================================
+
+DatabaseSettings databaseSettings = new DatabaseSettings();
+string postgres = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING_POSTGRES");
+
+
+if (postgres != null)
+    databaseSettings.ConnectionString = postgres;
+else
+    databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
+
+//===================================================================================================
+
 builder.Services.AddDbContext<ApplicationContext>(options =>
 {
     options.UseNpgsql(databaseSettings.ConnectionString, b =>
@@ -38,8 +51,24 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 
 builder.Services.AddSingleton<IMongoDatabase>(options =>
 {
-    var settings = builder.Configuration.GetSection("DatabaseMongoDBSettings").Get<DatabaseMongoDBSettings>();
+
+    //===================================================================================================
+
+    DatabaseMongoDBSettings settings = new DatabaseMongoDBSettings();
+    string mongo = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING_MONGODB");
+
+    if (mongo != null)
+    {
+        settings.DatabaseName = "quickorderdb";
+        settings.ConnectionString = mongo;
+    }
+    else
+        databaseSettings = builder.Configuration.GetSection("DatabaseMongoDBSettings").Get<DatabaseMongoDBSettings>();
+
     var client = new MongoClient(settings.ConnectionString);
+
+    //===================================================================================================
+
     return client.GetDatabase(settings.DatabaseName);
 });
 
