@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
 using QuickOrder.Adapters.Driven.PostgresDB.Core;
@@ -30,13 +31,11 @@ var migrationTable = "__IntegradorPlurallMigrationsHistory";
 DatabaseSettings databaseSettings = new DatabaseSettings();
 string postgres = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING_POSTGRES");
 
-
-if (postgres != null)
+if (!string.IsNullOrEmpty(postgres))
     databaseSettings.ConnectionString = postgres;
 else
     databaseSettings = builder.Configuration.GetSection("DatabaseSettings").Get<DatabaseSettings>();
 
-//===================================================================================================
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
 {
@@ -49,15 +48,14 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
     AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 });
 
+//===================================================================================================
+
 builder.Services.AddSingleton<IMongoDatabase>(options =>
 {
-
-    //===================================================================================================
-
     DatabaseMongoDBSettings settings = new DatabaseMongoDBSettings();
     string mongo = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING_MONGODB");
 
-    if (mongo != null)
+    if (!string.IsNullOrEmpty(mongo))
     {
         settings.DatabaseName = "quickorderdb";
         settings.ConnectionString = mongo;
@@ -67,10 +65,10 @@ builder.Services.AddSingleton<IMongoDatabase>(options =>
 
     var client = new MongoClient(settings.ConnectionString);
 
-    //===================================================================================================
-
     return client.GetDatabase(settings.DatabaseName);
 });
+
+//===================================================================================================
 
 builder.Services.AddDependencyInjectionConfiguration();
 
